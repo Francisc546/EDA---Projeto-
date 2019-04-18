@@ -20,10 +20,10 @@ void lePrimeiroNome(string primeiro_nome ) {
 	int nLinhas = contaLinhas(primeiro_nome);
 	ifstream file;
 	file.open(primeiro_nome, ifstream::out);
-	char p_nome;
-	string* pNome = new string[nLinhas];
+	//char p_nome;
+	//string* pNome = new string[nLinhas];
 	for (int i = 0; i < nLinhas;i++) {
-		pNome[i] = p_nome;
+		//pNome[i] = p_nome;
 		
 	}
 
@@ -36,10 +36,10 @@ void leUltimoNome(string ultimo_nome ) {
 	int nLinhas = contaLinhas(ultimo_nome);
 	ifstream file;
 	file.open(ultimo_nome);
-	char u_nome;
-	string *uNome = new string[nLinhas];
+	//char u_nome;
+	//string *uNome = new string[nLinhas];
 	for (int i = 0; i < nLinhas; i++) {
-		uNome[i] = u_nome;
+		//uNome[i] = u_nome;
 
 	}
 
@@ -53,10 +53,10 @@ void leCursos(string cursos) {
 	int nLinhas = contaLinhas(cursos);
 	ifstream file;
 	file.open(cursos);
-	char curso;
-	string* c = new string[nLinhas];
+	//char curso;
+	//string* c = new string[nLinhas];
 	for (int i = 0; i < nLinhas; i++) {
-		c[i] = curso;
+		//c[i] = curso;
 
 	}
 

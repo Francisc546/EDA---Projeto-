@@ -6,7 +6,7 @@
 using namespace std;
 
 
-void main() {
+int main() {
 	refeiçao * novaref = new refeiçao;
 	cout << "-------------------------CANTINA EDA ------------------------------" << endl;
 	InsereRefeição(novaref);
@@ -16,5 +16,5 @@ void main() {
 	cin.sync();
 	cin.get();
 	system("Pause");
-
+	return 0;
 }
