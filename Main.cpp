@@ -6,7 +6,6 @@
 using namespace std;
 
 
-<<<<<<< HEAD
 void main() {
 	
 	int tamanhopNome = contaLinhas("primeiro_nome.txt");
@@ -19,10 +18,6 @@ void main() {
 	string * cursos = new string[tamanhocursos];
 	InsereVetor(pNome, "cursos.txt");
 	/*refeiçao * novaref = new refeiçao;
-=======
-int main() {
-	refeiçao * novaref = new refeiçao;
->>>>>>> e0ae0fabea202f9412b17253f9bb0f54c6a41e1e
 	cout << "-------------------------CANTINA EDA ------------------------------" << endl;
 	InsereRefeição(novaref);
 	ImprimeRefeição(novaref);*/
@@ -32,5 +27,5 @@ int main() {
 
 	
 	system("Pause");
-	return 0;
+
 }
