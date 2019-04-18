@@ -2,19 +2,23 @@
 #include <fstream>
 #include <string>
 
+
 using namespace std;
 
 int contaLinhas(string filename) {
-	int nLinhas = 0 ;
+	int tamanho = 0 ;
 	ifstream file(filename);
 	string temp = " ";
 	while (getline(file, temp)) {
-		nLinhas++;
+		tamanho++;
+		
 	}
+	cout << tamanho << endl;
 	file.close();
-	return nLinhas;
+	return tamanho;
 }
 
+<<<<<<< HEAD
 void lePrimeiroNome(string * pNome,string filename ) {
 	fstream ficheiro(nome_ficheiro, ios::in);
 	if (ficheiro.is_open()) {
@@ -24,21 +28,32 @@ void lePrimeiroNome(string * pNome,string filename ) {
 			pNome[i] = aux
 			i++;
 		}
+=======
+void lePrimeiroNome(string primeiro_nome, int tamanho,string  *pNome) {
+	int i = 0;
+	
+	ifstream file;
+	file.open(primeiro_nome, ifstream::out);
+	string p_nome;
+	
+	for (int i = 0; i < tamanho ;i++) {
+		pNome[i] = p_nome;
+		cout << pNome[i];
+>>>>>>> e0ae0fabea202f9412b17253f9bb0f54c6a41e1e
 	}
 	else {
 		cout << "Erro ao ler ficheiro de alunos";
 }
 	
-void leUltimoNome(string ultimo_nome ) {
+void leUltimoNome(string ultimo_nome, int tamanho, string *uNome) {
 	int i = 0;
-	int nLinhas = contaLinhas(ultimo_nome);
 	ifstream file;
 	file.open(ultimo_nome);
-	char u_nome;
-	string *uNome = new string[nLinhas];
-	for (int i = 0; i < nLinhas; i++) {
+	string u_nome;
+	
+	for (int i = 0; i < tamanho; i++) {
 		uNome[i] = u_nome;
-
+		cout << uNome[i];
 	}
 
 
@@ -46,16 +61,16 @@ void leUltimoNome(string ultimo_nome ) {
 }
 
 
-void leCursos(string cursos) {
+void leCursos(string cursos, int tamanho, string *c) {
 	int i = 0;
-	int nLinhas = contaLinhas(cursos);
+	
 	ifstream file;
 	file.open(cursos);
-	char curso;
-	string* c = new string[nLinhas];
-	for (int i = 0; i < nLinhas; i++) {
+	string curso;
+	
+	for (int i = 0; i < tamanho; i++) {
 		c[i] = curso;
-
+		cout << c[i];
 	}
 
 	file.close();
