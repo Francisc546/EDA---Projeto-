@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include <string.h>
+#include <string>
 
 using namespace std;
 
@@ -21,7 +21,7 @@ void lePrimeiroNome(string primeiro_nome ) {
 	ifstream file;
 	file.open(primeiro_nome, ifstream::out);
 	char p_nome;
-	string pNome = new string[nLinhas];
+	string* pNome = new string[nLinhas];
 	for (int i = 0; i < nLinhas;i++) {
 		pNome[i] = p_nome;
 		
@@ -37,7 +37,7 @@ void leUltimoNome(string ultimo_nome ) {
 	ifstream file;
 	file.open(ultimo_nome);
 	char u_nome;
-	string uNome = new string[nLinhas];
+	string *uNome = new string[nLinhas];
 	for (int i = 0; i < nLinhas; i++) {
 		uNome[i] = u_nome;
 
@@ -54,7 +54,7 @@ void leCursos(string cursos) {
 	ifstream file;
 	file.open(cursos);
 	char curso;
-	string c = new string[nLinhas];
+	string* c = new string[nLinhas];
 	for (int i = 0; i < nLinhas; i++) {
 		c[i] = curso;
 
