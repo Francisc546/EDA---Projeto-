@@ -22,3 +22,6 @@ struct pessoa {
 
 void InsereRefeição(refeiçao * novaref);
 void ImprimeRefeição(refeiçao * novaref);
+void InsereVetor(string * pNome, string filename);
+int contaLinhas(string filename);
+void escreveVetor(string * pNome, int tamanho);
