@@ -5,7 +5,7 @@
 using namespace std;
 
 
-struct refeiçao {
+struct refeiÃ§ao {
 
 	string entrada;
 	string principal;
@@ -21,7 +21,7 @@ struct pessoa {
 
 };
 
-void InsereRefeição(refeiçao * novaref) {
+void InsereRefeiÃ§Ã£o(refeiÃ§ao * novaref) {
 	cout << "**************REFEICAO NOVA*****************" << endl;
 	cout << "Necessario uma nova refeicao, por favor atualize os seguintes dados" << endl;
 	cout << "Introduza a entrada: ";
@@ -33,7 +33,7 @@ void InsereRefeição(refeiçao * novaref) {
 	
 }
 
-void ImprimeRefeição(refeiçao * novaref) {
+void ImprimeRefeiÃ§Ã£o(refeiÃ§ao * novaref) {
 	cout << "Refeicao Atual: " << endl;
 	cout << "\t Entrada: " << novaref->entrada << endl;
 	cout << "\t Prato Principal: " << novaref->principal << endl;
@@ -41,17 +41,18 @@ void ImprimeRefeição(refeiçao * novaref) {
 
 }
 
-void main() {
-	refeiçao * novaref = new refeiçao;
+int main() {
+	refeiÃ§ao * novaref = new refeiÃ§ao;
 
 
 	cout << "-------------------------CANTINA EDA ------------------------------" << endl;
-	InsereRefeição(novaref);
-	ImprimeRefeição(novaref);
+	InsereRefeiÃ§Ã£o(novaref);
+	ImprimeRefeiÃ§Ã£o(novaref);
 
 
 	cin.sync();
 	cin.get();
 	system("Pause");
+	return 0;
 
 }
