@@ -15,20 +15,18 @@ int contaLinhas(string filename) {
 	return nLinhas;
 }
 
-void lePrimeiroNome(string primeiro_nome ) {
-	int i = 0;
-	int nLinhas = contaLinhas(primeiro_nome);
-	ifstream file;
-	file.open(primeiro_nome, ifstream::out);
-	char p_nome;
-	string* pNome = new string[nLinhas];
-	for (int i = 0; i < nLinhas;i++) {
-		pNome[i] = p_nome;
-		
+void lePrimeiroNome(string * pNome,string filename ) {
+	fstream ficheiro(nome_ficheiro, ios::in);
+	if (ficheiro.is_open()) {
+		int i = 0;
+		string aux;
+		while (getline(ficheiro, aux)) {
+			pNome[i] = aux
+			i++;
+		}
 	}
-
-
-	file.close();
+	else {
+		cout << "Erro ao ler ficheiro de alunos";
 }
 	
 void leUltimoNome(string ultimo_nome ) {
