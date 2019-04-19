@@ -10,13 +10,20 @@ struct refeiçao {
 	string principal;
 	float custo;
 };
-struct pessoa {
+struct alunos {
 	string primeironome;
 	string ultimonome;
 	int numero;
 	int numerogrupo;
 	string curso;
 	float plafond;
+
+};
+
+struct Mesa {
+	int numMesa;
+	int tamanho;
+	alunos * pessoas;
 
 };
 
@@ -29,3 +36,5 @@ void InsereCurso(string * cursos, string filename);
 void escrevepNome(string * pNome, int tamanho);
 void escreveuNome(string * uNome, int tamanho);
 void escrevecursos(string * cursos, int tamanho);
+void criamesas(int tamanhocantina);
+void criaidentidades( string * pNome, string * uNome, string * cursos);

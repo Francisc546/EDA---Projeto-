@@ -93,3 +93,42 @@ void escrevecursos(string * cursos, int tamanho) {
 		cout << cursos[i] << endl;
 	}
 }
+
+void criamesas(int tamanhocantina) {
+	int i = 0;
+	int n_mesa = 1;
+	while (i < tamanhocantina) {
+		if (tamanhocantina > 5) {
+			int lugares = rand() % 4 + 2;
+			Mesa* mesa = new Mesa;
+			mesa->numMesa = n_mesa;
+			mesa->tamanho = lugares;
+
+			tamanhocantina = tamanhocantina - lugares;
+			n_mesa = n_mesa + 1;
+			cout << "Numero de mesa: " << mesa->numMesa << endl << "Lugares da mesa: " << mesa->tamanho << endl << endl;
+
+
+		}
+		else {
+			Mesa* mesa = new Mesa;
+			mesa->numMesa = n_mesa;
+			mesa->tamanho = tamanhocantina;
+			tamanhocantina = tamanhocantina - tamanhocantina;
+			cout << "Numero de mesa: " << mesa->numMesa << endl << "Lugares da mesa: " << mesa->tamanho << endl << endl;
+
+		}
+	}
+}
+void criaidentidades(string * pNome, string * uNome, string * cursos) {
+	int i = rand() % 43;
+	int j = rand() % 96;
+	int k = rand() % 18;
+	alunos * aluno = new alunos;
+	aluno->primeironome = pNome[i];
+	aluno->ultimonome = uNome[j];
+	aluno->curso = cursos[k];
+	cout << "Nome do aluno: " << aluno->primeironome << " " << aluno->ultimonome << "Curso: " << aluno->curso << endl;
+
+	
+ }
