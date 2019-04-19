@@ -34,7 +34,7 @@ int contaLinhas(string filename) {
 	return nLinhas;
 }
 
-void InsereVetor(string * pNome, string filename) {
+void InserepNome(string * pNome, string filename) {
 	int i = 0;
 	ifstream file;
 	file.open(filename);
@@ -47,14 +47,49 @@ void InsereVetor(string * pNome, string filename) {
 	file.close();
 
 }
+void InsereuNome(string * uNome, string filename) {
+	int i = 0;
+	ifstream file;
+	file.open(filename);
+	string aux;
+	while (file >> aux) {
+		uNome[i] = aux;
+		i++;
+
+	}
+	file.close();
+
+}
+void InsereCurso(string * cursos, string filename) {
+	int i = 0;
+	ifstream file;
+	file.open(filename);
+	string aux;
+	while (getline(file,aux)) {
+		cursos[i] = aux;
+		i++;
+
+	}
+	file.close();
+}
 
 
 
-void escreveVetor(string * pNome, int tamanho) {
+void escrevepNome(string * pNome, int tamanho) {
 	for (int i = 0; i < tamanho; i++) {
 		cout << pNome[i] << endl;
 
-
 	}
+}
 
+void escreveuNome(string * uNome, int tamanho) {
+	for (int i = 0; i < tamanho; i++) {
+		cout << uNome[i] << endl;
+	}
+}
+
+void escrevecursos(string * cursos, int tamanho) {
+	for (int i = 0; i < tamanho; i++) {
+		cout << cursos[i] << endl;
+	}
 }
