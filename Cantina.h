@@ -37,4 +37,4 @@ void escrevepNome(string * pNome, int tamanho);
 void escreveuNome(string * uNome, int tamanho);
 void escrevecursos(string * cursos, int tamanho);
 void criamesas(int tamanhocantina);
-void criaidentidades( string * pNome, string * uNome, string * cursos);
+void criaidentidades(string * pNome, string * uNome, string * cursos);

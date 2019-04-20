@@ -65,7 +65,7 @@ void InsereCurso(string * cursos, string filename) {
 	ifstream file;
 	file.open(filename);
 	string aux;
-	while (getline(file,aux)) {
+	while (getline(file, aux)) {
 		cursos[i] = aux;
 		i++;
 
@@ -130,5 +130,5 @@ void criaidentidades(string * pNome, string * uNome, string * cursos) {
 	aluno->curso = cursos[k];
 	cout << "Nome do aluno: " << aluno->primeironome << " " << aluno->ultimonome << "Curso: " << aluno->curso << endl;
 
-	
- }
+
+}

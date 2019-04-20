@@ -1,0 +1,24 @@
+void criaidentidades(string * pNome, string * uNome, string * cursos) {
+	int spawn = rand() % 100;
+	if (spawn >= 75) {
+		int i = rand() % 43;
+		int j = rand() % 96;
+		int k = rand() % 18;
+		staffs * staff = new staffs;
+		staffs->primeironome = pNome[i];
+		staffs->ultimonome = uNome[j];
+		staffs->departamento = cursos[k];
+		cout << "Nome do staff: " << staffs->primeironome << " " << staffs->ultimonome << "Departamento: " << staffs->departamento << endl;
+	}
+	else
+	{
+		int i = rand() % 43;
+		int j = rand() % 96;
+		int k = rand() % 18;
+		alunos * aluno = new alunos;
+		aluno->primeironome = pNome[i];
+		aluno->ultimonome = uNome[j];
+		aluno->curso = cursos[k];
+		cout << "Nome do aluno: " << aluno->primeironome << " " << aluno->ultimonome << "Curso: " << aluno->curso << endl;
+	}
+ }
