@@ -1,0 +1,9 @@
+Prioridade:
+
+- Criar função para criar grupos( em vez de criar alunos e staff individualmente , criar os grupos com tamanho que varia de 1 a 10, sendo que pode haver grupos com 1 aluno/staff)
+- Criar um array do tipo mesa para inserir as mesas dentro do mesmo de forma a manipular as mesas;
+
+A fazer :
+
+-Criar funçao que grave os dados da cantina;
+-Criar funçao que carregue os dados de certos ficheiros na cantina;
