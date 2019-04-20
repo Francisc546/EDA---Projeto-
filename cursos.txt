@@ -1,19 +1,19 @@
 ﻿Economia
-Educação Básica
-Matemática
-Línguas e Relações Empresarias
-Gestão
+Educação Basica
+Matematica
+Linguas e Relacoes Empresarias
+Gestao
 Estudos de Cultura
-Engenharia Informática
-Engenharia Electrónica e Telecomunicações
-Educação Física e Desporto
+Engenharia Informatica
+Engenharia Electronica e Telecomunicacoes
+Educação Fisica e Desporto
 Engenharia Civil
 Enfermagem
-Direção e Gestão Hoteleira
+Direçao e Gestao Hoteleira
 Artes Visuais
 Biologia
-Bioquímica
-Ciências da Educação
-Comunicação, Cultura e Organizações
+Bioquimica
+Ciencias da Educaçao
+Comunicacao, Cultura e Organizacoes
 Design
 Psicologia

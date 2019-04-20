@@ -65,7 +65,7 @@ void InsereCurso(string * cursos, string filename) {
 	ifstream file;
 	file.open(filename);
 	string aux;
-	while (getline(file, aux)) {
+	while (getline(file,aux)) {
 		cursos[i] = aux;
 		i++;
 
@@ -120,15 +120,75 @@ void criamesas(int tamanhocantina) {
 		}
 	}
 }
-void criaidentidades(string * pNome, string * uNome, string * cursos) {
+
+/*void criaidentidades(string * pNome, string * uNome, string * cursos) {
+	int spawn = rand() % 100;
 	int i = rand() % 43;
 	int j = rand() % 96;
 	int k = rand() % 18;
-	alunos * aluno = new alunos;
-	aluno->primeironome = pNome[i];
-	aluno->ultimonome = uNome[j];
-	aluno->curso = cursos[k];
-	cout << "Nome do aluno: " << aluno->primeironome << " " << aluno->ultimonome << "Curso: " << aluno->curso << endl;
+	int dinheiro = rand() % 100 + 1;
+	if (spawn >= 75) {
+		identidade::staff * staff = new identidade::staff();
+		staff->primeironome = pNome[i];
+		staff->ultimonome = uNome[j];
+		staff->plafond = dinheiro;
+		cout << "Nome do staff: " << staff->primeironome << " " << staff->ultimonome << " Plafond: " << staff->plafond << endl;
+	}
+	else
+	{
+		identidade::aluno * aluno = new identidade::aluno();
+		aluno->primeironome = pNome[i];
+		aluno->ultimonome = uNome[j];
+		aluno->curso = cursos[k];
+		aluno->plafond = dinheiro;
+		cout << "Nome do aluno: " << aluno->primeironome << " " << aluno->ultimonome << " Curso: " << aluno->curso << " Plafond: " << aluno->plafond << endl;
+	}
+}*/
 
+void criagrupo(string * pNome, string * uNome, string * cursos) {
+	int r = 0;
+	int spawn = rand() % 100;
+	int numero = rand() % 20 + 1; // numero grupo
+	int tamanho = rand() % 10 + 1; // tamanho do grupo
+	int especial = rand() % 100 + 1;
+	int duraçaoref = rand() % 4 + 2;
+	grupo * novogrupo = new grupo;
+	novogrupo->numerogrupo = numero;
+	identidade * grupo = new identidade[tamanho];
+	while (r < tamanho) {
+		if (spawn >= 75) {
+			int i = rand() % 43;
+			int j = rand() % 96;
+			int k = rand() % 18;
+			int dinheiro = rand() % 100 + 1;
+			int id = rand() % 2087318 + 2000000; //numero aluno/funcionario
+			grupo[r].primeironome = pNome[i];
+			grupo[r].ultimonome = uNome[j];
+			grupo[r].plafond = dinheiro;
+			grupo[r].numeroid = id;
+			grupo[r].numerogrupo = novogrupo->numerogrupo;
+			grupo[r].duraçao = duraçaoref;
+			cout << grupo[r].primeironome << " " << grupo[r].ultimonome << ", ID: " << grupo[r].numeroid << " , Departamento " << grupo[r].numerogrupo << " , Plafond: " << grupo[r].plafond << " euros" << endl;
+			r++;
+
+		}
+		else {
+			int i = rand() % 43;
+			int j = rand() % 96;
+			int k = rand() % 18;
+			int dinheiro = rand() % 100 + 1;
+			int id = rand() % 2087318 + 2000000; // numero aluno/funcionario;
+			grupo[r].primeironome = pNome[i];
+			grupo[r].ultimonome = uNome[j];
+			grupo[r].plafond = dinheiro;
+			grupo[r].curso = cursos[k];
+			grupo[r].numeroid = id;
+			grupo[r].numerogrupo = novogrupo->numerogrupo;
+			grupo[r].duraçao = duraçaoref;
+			cout << grupo[r].primeironome << " " << grupo[r].ultimonome << ",Curso: " << grupo[r].curso << " ,ID: " << grupo[r].numeroid << " ,Grupo " << grupo[r].numerogrupo << " ,Plafond: " << grupo[r].plafond << "euros" << endl;
+			r++;
+		}
+	}
+	novogrupo->pessoas = grupo;
 
 }
