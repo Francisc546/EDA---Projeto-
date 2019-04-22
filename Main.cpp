@@ -29,7 +29,7 @@ void main() {
 		cout << "-------------------------CANTINA EDA ------------------------------" << endl;
 		InsereRefeição(novaref);
 		ImprimeRefeição(novaref);
-		grupo * filadeespera = new grupo[50];
+	
 
 		cout << "(S) seguinte (e) Emergência (g) Gravar (c) Carregar dados (o) Opçoes ";
 		cin >> opçao;
@@ -45,26 +45,16 @@ void main() {
 	
 	
 	;*/
-	//identidade * filadeespera = new identidade[50];
-	//criagrupo(pNome, uNome, cursos);
-	identidade p;
-	p.curso = "INFORMATICA";
-	Mesa * cantina = criamesas2();
-	cantina[4].pessoas[0] = p;
-
-	cout << cantina[4].pessoas[0].curso;
+	int posicaovazia = 0;
+	identidade * filadeespera = new identidade[50];
+	for (int i = 0; posicaovazia < 50; posicaovazia++) {
+		//adicionafila(filadeespera, posicaovazia, pNome, uNome, cursos);
+		cout << "Ola " << posicaovazia << endl;
+		posicaovazia = adicionafila(filadeespera, posicaovazia, pNome, uNome, cursos);
+	}
+	imprimeFila(filadeespera,50);
 	
 
-
-
-
-	/*refeiçao * novaref = new refeiçao;
-	cout << "-------------------------CANTINA EDA ------------------------------" << endl;
-	InsereRefeição(novaref);
-	ImprimeRefeição(novaref);*/
-	
-
-	
 	
 
 
