@@ -13,7 +13,7 @@ struct refeiçao {
 struct identidade {
 		
 		string primeironome, ultimonome;
-		int numeroid, numerogrupo, duraçao, departamento;
+		int numeroid, numerogrupo, duracao;
 		string curso;
 		float plafond;
 		bool tipo;

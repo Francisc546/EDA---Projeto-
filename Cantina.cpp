@@ -241,7 +241,7 @@ Mesa * criamesas2() {
 
 bool decide(bool tipo) {
 	int spawn = rand() % 100 + 1;
-	if (spawn >= 75) {
+	if (spawn <= 75) {
 		return true;
 	}
 	else {
@@ -256,6 +256,7 @@ identidade * criagrupo(string * pNome, string * uNome, string * cursos, int elem
 		int i = rand() % 43;
 		int j = rand() % 96;
 		int k = rand() % 18;
+		int duracaoref = rand() % 4 + 2;
 		novogrupo[r].primeironome = pNome[i];
 		novogrupo[r].ultimonome = uNome[j];
 		novogrupo[r].tipo = d;
@@ -267,18 +268,19 @@ identidade * criagrupo(string * pNome, string * uNome, string * cursos, int elem
 			novogrupo[r].curso = cursos[k];
 			novogrupo[r].numeroid = id;
 			novogrupo[r].plafond = dinheiro;
-			
+			novogrupo[r].duracao = duracaoref;
 
 		}
 		else {
 			int id = rand() % 2087318 + 2000000;
 			int dinheiro = rand() % 100 + 1;
-			novogrupo[r].departamento = numerogrupo;
+			novogrupo[r].numerogrupo = numerogrupo;
 			novogrupo[r].numeroid = id;
 			novogrupo[r].plafond = dinheiro;
-			
+			novogrupo[r].duracao = duracaoref;
 			
 		}
+		
 	}
 	
 	return novogrupo;
@@ -289,24 +291,22 @@ int adicionafila(identidade * filadeespera, int posicaovazia, string * pNome, st
 	tipo = decide(tipo);
 	int elementos = rand() % 10 + 1;
 	//criagrupo(pNome, uNome, cursos, elementos,tipo);
-	int numerogrup = rand() % 20 + 1;
+	int numerogrup = rand() % 50 + 1; 
 	
 	if (posicaovazia > 50 - 10)
 		elementos = 50 - posicaovazia;
 
-	identidade * novogrupo = criagrupo(pNome, uNome, cursos, elementos, tipo, numerogrup);
-	/*for (int i = 0; i < elementos; i++) {
-		cout << novogrupo[i].primeironome << endl;
-	}*/
 
+	identidade * novogrupo = criagrupo(pNome, uNome, cursos, elementos, tipo, numerogrup);
+	
 	for (int i = 0; i < elementos && (posicaovazia + i < 50); i++) {
 		filadeespera[posicaovazia] = novogrupo[i];	
-		cout << filadeespera[ posicaovazia].primeironome << endl;
 		posicaovazia++;
+		
 	}
-	
-	
 
+
+	
 	return posicaovazia - 1;
 	
 }
@@ -314,8 +314,14 @@ int adicionafila(identidade * filadeespera, int posicaovazia, string * pNome, st
 void imprimeFila(identidade * filadeespera, int tamanho) {
 	for (int i = 0; i < tamanho; i++) {
 		//string tipo = filadeespera[i].tipo ? " ALUNO " : " STAFF";
-		identidade pessoa = filadeespera[i];
-		cout <<" -> " << filadeespera[i].tipo << " " <<  filadeespera[i].primeironome << " " << filadeespera[i].ultimonome << ", " << filadeespera[i].curso << ", " << filadeespera[i].numeroid << ", " << filadeespera[i].numerogrupo << ", " << filadeespera[i].plafond << endl;
+		//identidade pessoa = filadeespera[i];
+		if (filadeespera[i].tipo == 1) {
+
+			cout << " -> " << "ALUNO" << ", " << filadeespera[i].primeironome << " " << filadeespera[i].ultimonome << ", " << filadeespera[i].curso << ", " << filadeespera[i].numeroid << ", " << filadeespera[i].numerogrupo << ", " << filadeespera[i].plafond << " euros, (Duracao: " << filadeespera[i].duracao << ")" <<  endl;
+		}
+		else {
+			cout << " -> " << "STAFF" << ", " << filadeespera[i].primeironome << " " << filadeespera[i].ultimonome << ", " << filadeespera[i].curso << ", " << filadeespera[i].numeroid << ", " << filadeespera[i].numerogrupo << ", " << filadeespera[i].plafond << " euros, (Duracao: " << filadeespera[i].duracao << ")" << endl;
+		}
 		//cout << " -> " << filadeespera[i].tipo << " " << filadeespera[i].primeironome << endl;// << " " << filadeespera[i].ultimonome << ", " << filadeespera[i].curso << ", " << filadeespera[i].numeroid << ", " << filadeespera[i].numerogrupo << ", " << filadeespera[i].plafond << endl;
 
 		cout << endl;
