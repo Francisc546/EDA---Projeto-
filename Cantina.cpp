@@ -250,7 +250,7 @@ bool decide(bool tipo) {
 	
 }
 
-identidade * criagrupo(string * pNome, string * uNome, string * cursos, int elementos, bool decide, int numerogrupo) {
+identidade * criagrupo(string * pNome, string * uNome, string * cursos, int elementos, bool d, int numerogrupo) {
 	identidade * novogrupo = new identidade[elementos];
 	for (int r = 0; r < elementos; r++) {
 		int i = rand() % 43;
@@ -258,9 +258,9 @@ identidade * criagrupo(string * pNome, string * uNome, string * cursos, int elem
 		int k = rand() % 18;
 		novogrupo[r].primeironome = pNome[i];
 		novogrupo[r].ultimonome = uNome[j];
-		novogrupo[r].tipo = decide;
-		cout << numerogrupo << endl;
-		if (decide = true) {
+		novogrupo[r].tipo = d;
+		//cout << "-- "<<novogrupo[r].primeironome << endl;
+		if (d) {
 			int id = rand() % 2087318 + 2000000;
 			int dinheiro = rand() % 100 + 1;
 			novogrupo[r].numerogrupo = numerogrupo;
@@ -277,8 +277,10 @@ identidade * criagrupo(string * pNome, string * uNome, string * cursos, int elem
 			novogrupo[r].numeroid = id;
 			novogrupo[r].plafond = dinheiro;
 			
+			
 		}
 	}
+	
 	return novogrupo;
 }
 
@@ -288,13 +290,19 @@ int adicionafila(identidade * filadeespera, int posicaovazia, string * pNome, st
 	int elementos = rand() % 10 + 1;
 	//criagrupo(pNome, uNome, cursos, elementos,tipo);
 	int numerogrup = rand() % 20 + 1;
+	
+	if (posicaovazia > 50 - 10)
+		elementos = 50 - posicaovazia;
+
 	identidade * novogrupo = criagrupo(pNome, uNome, cursos, elementos, tipo, numerogrup);
+	/*for (int i = 0; i < elementos; i++) {
+		cout << novogrupo[i].primeironome << endl;
+	}*/
+
 	for (int i = 0; i < elementos && (posicaovazia + i < 50); i++) {
-		filadeespera[i + posicaovazia] = novogrupo[i];	
-		cout << filadeespera[i + posicaovazia].primeironome << endl;
-
+		filadeespera[posicaovazia] = novogrupo[i];	
+		cout << filadeespera[ posicaovazia].primeironome << endl;
 		posicaovazia++;
-
 	}
 	
 	
@@ -305,8 +313,11 @@ int adicionafila(identidade * filadeespera, int posicaovazia, string * pNome, st
 
 void imprimeFila(identidade * filadeespera, int tamanho) {
 	for (int i = 0; i < tamanho; i++) {
-		string tipo = filadeespera[i].tipo ? " ALUNO " : " STAFF";
-		cout << tipo << " -> " <<  filadeespera[i].primeironome << " " << filadeespera[i].ultimonome << ", " << filadeespera[i].curso << ", " << filadeespera[i].numeroid << ", " << filadeespera[i].numerogrupo << ", " << filadeespera[i].plafond << endl;
+		//string tipo = filadeespera[i].tipo ? " ALUNO " : " STAFF";
+		identidade pessoa = filadeespera[i];
+		cout <<" -> " << filadeespera[i].tipo << " " <<  filadeespera[i].primeironome << " " << filadeespera[i].ultimonome << ", " << filadeespera[i].curso << ", " << filadeespera[i].numeroid << ", " << filadeespera[i].numerogrupo << ", " << filadeespera[i].plafond << endl;
+		//cout << " -> " << filadeespera[i].tipo << " " << filadeespera[i].primeironome << endl;// << " " << filadeespera[i].ultimonome << ", " << filadeespera[i].curso << ", " << filadeespera[i].numeroid << ", " << filadeespera[i].numerogrupo << ", " << filadeespera[i].plafond << endl;
+
 		cout << endl;
 		
 	}

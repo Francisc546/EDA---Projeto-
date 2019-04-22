@@ -49,12 +49,11 @@ void main() {
 	identidade * filadeespera = new identidade[50];
 	for (int i = 0; posicaovazia < 50; posicaovazia++) {
 		//adicionafila(filadeespera, posicaovazia, pNome, uNome, cursos);
-		cout << "Ola " << posicaovazia << endl;
 		posicaovazia = adicionafila(filadeespera, posicaovazia, pNome, uNome, cursos);
 	}
 	imprimeFila(filadeespera,50);
 	
-
+	
 	
 
 
