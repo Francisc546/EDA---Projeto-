@@ -34,7 +34,7 @@ void main() {
 		cout << "(S) seguinte (e) Emergência (g) Gravar (c) Carregar dados (o) Opçoes ";
 		cin >> opçao;
 		switch (opçao) {
-		case 's':
+			case 's':
 			
 		}
 
@@ -59,5 +59,4 @@ void main() {
 
 	
 	system("Pause");
-
 }
