@@ -11,12 +11,12 @@ struct refeiçao {
 	float custo;
 };
 struct identidade {
-		bool tipo;
+		
 		string primeironome, ultimonome;
-		int numeroid, numerogrupo, duraçao;
+		int numeroid, numerogrupo, duraçao, departamento;
 		string curso;
 		float plafond;
-	
+		bool tipo;
 
 };
 
@@ -41,5 +41,9 @@ void criamesas(int tamanhocantina);
 void criaidentidades( string * pNome, string * uNome, string * cursos);
 //void criagrupo(string * pNome, string * uNome, string * cursos);
 //void criagrupo(identidade * filadeespera, int tamanho, string * pNome, string * uNome, string * cursos);
-identidade * criagrupo(string * pNome, string * uNome, string * cursos);
+//identidade * criagrupo(string * pNome, string * uNome, string * cursos);
 Mesa * criamesas2();
+bool decide(bool tipo);
+identidade * criagrupo(string * pNome, string * uNome, string * cursos, int elementos, bool decide, int numerogrupo);
+int adicionafila(identidade * filadeespera, int posicaovazia, string * pNome, string * uNome, string * cursos);
+void imprimeFila(identidade * filadeespera, int tamanho);
