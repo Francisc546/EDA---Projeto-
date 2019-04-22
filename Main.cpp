@@ -42,10 +42,17 @@ void main() {
 
 
 	}
-	criamesas(tamanhocantina);*/
 	
-	criagrupo(pNome, uNome, cursos);
 	
+	;*/
+	//identidade * filadeespera = new identidade[50];
+	//criagrupo(pNome, uNome, cursos);
+	identidade p;
+	p.curso = "INFORMATICA";
+	Mesa * cantina = criamesas2();
+	cantina[4].pessoas[0] = p;
+
+	cout << cantina[4].pessoas[0].curso;
 	
 
 

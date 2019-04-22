@@ -145,17 +145,16 @@ void criamesas(int tamanhocantina) {
 	}
 }*/
 
-void criagrupo(string * pNome, string * uNome, string * cursos) {
-	int r = 0;
-	int spawn = rand() % 100;
-	int numero = rand() % 20 + 1; // numero grupo
-	int tamanho = rand() % 10 + 1; // tamanho do grupo
-	int especial = rand() % 100 + 1;
-	int duraçaoref = rand() % 4 + 2;
-	grupo * novogrupo = new grupo;
-	novogrupo->numerogrupo = numero;
-	identidade * grupo = new identidade[tamanho];
-	while (r < tamanho) {
+/*void criagrupo(string * pNome, string * uNome, string * cursos) {
+		int r = 0;
+		int spawn = rand() % 100;
+		int numero = rand() % 20 + 1; // numero grupo
+		int tamanho = rand() % 10 + 1; // tamanho do grupo
+		int duraçaoref = rand() % 4 + 2;
+		grupo * novogrupo = new grupo;
+		novogrupo->numerogrupo = numero;
+		identidade * grupo = new identidade[tamanho];
+		while (r < tamanho) {
 		if (spawn >= 75) {
 			int i = rand() % 43;
 			int j = rand() % 96;
@@ -188,7 +187,54 @@ void criagrupo(string * pNome, string * uNome, string * cursos) {
 			cout << grupo[r].primeironome << " " << grupo[r].ultimonome << ",Curso: " << grupo[r].curso << " ,ID: " << grupo[r].numeroid << " ,Grupo " << grupo[r].numerogrupo << " ,Plafond: " << grupo[r].plafond << "euros" << endl;
 			r++;
 		}
+		}
+		novogrupo->grupopessoas = grupo;
+		
+
+}*/
+identidade * criagrupo(string * pNome, string * uNome, string * cursos) {
+	int tamanho = rand() % 10 + 1;
+	int numgrupo = rand() % 20 + 1;
+	int duraçaoref = rand() & 4 + 2;
+	identidade * grupo = new identidade[tamanho];
+	for (int r = 0; r < tamanho; r++) {
+		int i = rand() % 43;
+		int j = rand() % 96;
+		int k = rand() % 18;
+		int dinheiro = rand() % 100 + 1;
+		int id = rand() % 2087318 + 2000000; // numero aluno/funcionario;
+		grupo[r].primeironome = pNome[i];
+		grupo[r].ultimonome = uNome[j];
+		grupo[r].plafond = dinheiro;
+		grupo[r].curso = cursos[k];
+		grupo[r].numeroid = id;
+		grupo[r].numerogrupo = numgrupo;
+		grupo[r].duraçao = duraçaoref;
+		cout << grupo[r].primeironome << " " << grupo[r].ultimonome << ", Curso: " << grupo[r].curso << " , ID: " << grupo[r].numeroid << " , Grupo " << grupo[r].numerogrupo << " , Plafond: " << grupo[r].plafond << " euros , Duraçao: " << grupo[r].duraçao << endl;
+
 	}
-	novogrupo->pessoas = grupo;
+	return grupo;
+}
+
+Mesa * criamesas2() {
+	int i = 0;
+	int n_mesa = 1;
+	int tamanhodacantina = rand() % 51 + 30;
+	Mesa * temp = new Mesa[50];
+	while (i < tamanhodacantina) {
+		Mesa  novamesa;
+		novamesa.tamanho = rand() % 4 + 2;
+		novamesa.numMesa = n_mesa;
+		novamesa.pessoas = new identidade[novamesa.tamanho];
+		temp[n_mesa - 1] = novamesa;
+		i = i + novamesa.tamanho;
+		n_mesa++;
+	}
+	Mesa * cantina = new Mesa[n_mesa];
+	for (int k = 0; k < n_mesa; k++) {
+		cantina[k] = temp[k];
+	}
+	delete[] temp;
+	return cantina;
 
 }
