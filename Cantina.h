@@ -17,6 +17,7 @@ struct identidade {
 	string curso;
 	float plafond;
 	bool tipo;
+	int n_elementos;
 
 };
 
@@ -24,27 +25,22 @@ struct identidade {
 struct Mesa {
 	int numMesa;
 	int tamanho;
+	int vagas;
 	identidade * pessoas;
 
 };
+void imprimeCantina(Mesa*cantina, int numeromesas);
 
 void imprimeMesa(Mesa*cantina, int numeromesas);
 void InsereRefeição(refeiçao * novaref);
 void ImprimeRefeição(refeiçao * novaref);
-int contaLinhas(string filename);
-void InserepNome(string * pNome, string filename);
-void InsereuNome(string * uNome, string filename);
-void InsereCurso(string * cursos, string filename);
-void escrevepNome(string * pNome, int tamanho);
-void escreveuNome(string * uNome, int tamanho);
-void escrevecursos(string * cursos, int tamanho);
-void criamesas(int tamanhocantina);
-void criaidentidades(string * pNome, string * uNome, string * cursos);
-//void criagrupo(string * pNome, string * uNome, string * cursos);
-//void criagrupo(identidade * filadeespera, int tamanho, string * pNome, string * uNome, string * cursos);
-//identidade * criagrupo(string * pNome, string * uNome, string * cursos);
 Mesa * criamesas2(int &numeromesas, Mesa*temp, int tamanhodacantina);
 bool decide(bool tipo);
 identidade * criagrupo(string * pNome, string * uNome, string * cursos, int elementos, bool decide, int numerogrupo);
 int adicionafila(identidade * filadeespera, int posicaovazia, string * pNome, string * uNome, string * cursos);
 void imprimeFila(identidade * filadeespera, int tamanho); 
+void adicionamesa(Mesa * cantina, identidade * filadeespera, int numerodemesas, int tamanho);
+void imprimeMesa(Mesa*cantina, int numeromesas);
+int adicionagrupo(Mesa * cantina, identidade * filadeespera, int numerodemesas, int tamanho);
+void apagaFilaEspera(identidade * f, int n_elem);
+void adicionaGrupos(Mesa * cantina, identidade * filadeespera, int numeromesas, int tamanho);

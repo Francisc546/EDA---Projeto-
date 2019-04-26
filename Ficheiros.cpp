@@ -2,76 +2,75 @@
 #include <fstream>
 #include <string>
 
-
 using namespace std;
 
 int contaLinhas(string filename) {
-	int tamanho = 0 ;
+	int nLinhas = 0;
 	ifstream file(filename);
-	string temp = " ";
+	string temp = "";
 	while (getline(file, temp)) {
-		tamanho++;
-		
+		nLinhas++;
 	}
-	cout << tamanho << endl;
 	file.close();
-	return tamanho;
+	return nLinhas;
 }
 
-<<<<<<< HEAD
-void lePrimeiroNome(string * pNome,string filename ) {
-	fstream ficheiro(nome_ficheiro, ios::in);
-	if (ficheiro.is_open()) {
-		int i = 0;
-		string aux;
-		while (getline(ficheiro, aux)) {
-			pNome[i] = aux
-			i++;
-		}
-=======
-void lePrimeiroNome(string primeiro_nome, int tamanho,string  *pNome) {
+void InserepNome(string * pNome, string filename) {
 	int i = 0;
-	
 	ifstream file;
-	file.open(primeiro_nome, ifstream::out);
-	string p_nome;
-	
-	for (int i = 0; i < tamanho ;i++) {
-		pNome[i] = p_nome;
-		cout << pNome[i];
->>>>>>> e0ae0fabea202f9412b17253f9bb0f54c6a41e1e
+	file.open(filename);
+	string aux;
+	while (file >> aux) {
+		pNome[i] = aux;
+		i++;
+
 	}
-	else {
-		cout << "Erro ao ler ficheiro de alunos";
+	file.close();
+
 }
-	
-void leUltimoNome(string ultimo_nome, int tamanho, string *uNome) {
+void InsereuNome(string * uNome, string filename) {
 	int i = 0;
 	ifstream file;
-	file.open(ultimo_nome);
-	string u_nome;
-	
+	file.open(filename);
+	string aux;
+	while (file >> aux) {
+		uNome[i] = aux;
+		i++;
+
+	}
+	file.close();
+
+}
+void InsereCurso(string * cursos, string filename) {
+	int i = 0;
+	ifstream file;
+	file.open(filename);
+	string aux;
+	while (getline(file, aux)) {
+		cursos[i] = aux;
+		i++;
+
+	}
+	file.close();
+}
+
+
+
+void escrevepNome(string * pNome, int tamanho) {
 	for (int i = 0; i < tamanho; i++) {
-		uNome[i] = u_nome;
-		cout << uNome[i];
+		cout << pNome[i] << endl;
+
 	}
-
-
-	file.close();
 }
 
-
-void leCursos(string cursos, int tamanho, string *c) {
-	int i = 0;
-	
-	ifstream file;
-	file.open(cursos);
-	string curso;
-	
+void escreveuNome(string * uNome, int tamanho) {
 	for (int i = 0; i < tamanho; i++) {
-		c[i] = curso;
-		cout << c[i];
+		cout << uNome[i] << endl;
 	}
+}
 
-	file.close();
+void escrevecursos(string * cursos, int tamanho) {
+	for (int i = 0; i < tamanho; i++) {
+		cout << cursos[i] << endl;
+	}
 }
