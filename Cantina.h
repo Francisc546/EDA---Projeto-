@@ -25,9 +25,11 @@ struct identidade {
 struct Mesa {
 	int numMesa;
 	int tamanho;
+	int vagas;
 	identidade * pessoas;
 
 };
+void imprimeCantina(Mesa*cantina, int numeromesas);
 
 void imprimeMesa(Mesa*cantina, int numeromesas);
 void InsereRefeição(refeiçao * novaref);
@@ -38,3 +40,7 @@ identidade * criagrupo(string * pNome, string * uNome, string * cursos, int elem
 int adicionafila(identidade * filadeespera, int posicaovazia, string * pNome, string * uNome, string * cursos);
 void imprimeFila(identidade * filadeespera, int tamanho); 
 void adicionamesa(Mesa * cantina, identidade * filadeespera, int numerodemesas, int tamanho);
+void imprimeMesa(Mesa*cantina, int numeromesas);
+int adicionagrupo(Mesa * cantina, identidade * filadeespera, int numerodemesas, int tamanho);
+void apagaFilaEspera(identidade * f, int n_elem);
+void adicionaGrupos(Mesa * cantina, identidade * filadeespera, int numeromesas, int tamanho);

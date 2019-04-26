@@ -28,12 +28,13 @@ Mesa * criamesas2(int &numeromesas, Mesa*temp, int tamanhodacantina) {
 	int i = 0;
 	int n_mesa = 1;
 	int tamanho =  tamanhodacantina;
-	cout << tamanhodacantina << endl;
+	//cout << tamanhodacantina << endl;
 	while (i < tamanhodacantina) {
 		if (tamanhodacantina > 5) {
 			Mesa  novamesa;
 			int lugares = rand() % 4 + 2;
 			novamesa.tamanho = lugares;
+			novamesa.vagas = novamesa.tamanho;
 			novamesa.numMesa = n_mesa;
 			novamesa.pessoas = new identidade[novamesa.tamanho];
 			temp[n_mesa - 1] = novamesa;
@@ -49,6 +50,7 @@ Mesa * criamesas2(int &numeromesas, Mesa*temp, int tamanhodacantina) {
 			int lugares = tamanhodacantina;
 			novamesa.tamanho = lugares;
 			novamesa.numMesa = n_mesa;
+			novamesa.vagas = novamesa.tamanho;
 			novamesa.pessoas = new identidade[novamesa.tamanho];
 			temp[n_mesa - 1] = novamesa;
 			i = i + novamesa.tamanho;
@@ -57,8 +59,8 @@ Mesa * criamesas2(int &numeromesas, Mesa*temp, int tamanhodacantina) {
 			
 		}
 	}
-	cout << "Numero de mesas: "<< numeromesas << endl;
-	cout << "Tamanho: " << tamanhodacantina<<endl;
+	//cout << "Numero de mesas: "<< numeromesas << endl;
+	//cout << "Tamanho: " << tamanhodacantina<<endl;
 
 	return temp;
 
@@ -81,11 +83,10 @@ bool decide(bool tipo) {
 identidade * criagrupo(string * pNome, string * uNome, string * cursos, int elementos, bool d, int numerogrupo) {
 	identidade * novogrupo = new identidade[elementos];
 	int duracaoref = rand() % 4 + 2;
-
+	int k = rand() % 18;
 	for (int r = 0; r < elementos; r++) {
 		int i = rand() % 43;
 		int j = rand() % 96;
-		int k = rand() % 18;
 		novogrupo[r].primeironome = pNome[i];
 		novogrupo[r].ultimonome = uNome[j];
 		novogrupo[r].tipo = d;
@@ -95,10 +96,10 @@ identidade * criagrupo(string * pNome, string * uNome, string * cursos, int elem
 			int id = rand() % 2087318 + 2000000;
 			int dinheiro = rand() % 100 + 1;
 			novogrupo[r].numerogrupo = numerogrupo;
-			novogrupo[r].curso = cursos[k];
 			novogrupo[r].numeroid = id;
 			novogrupo[r].plafond = dinheiro;
 			novogrupo[r].duracao = duracaoref;
+			novogrupo[r].curso = cursos[k];
 
 		}
 		else {
@@ -160,34 +161,203 @@ void imprimeFila(identidade * filadeespera, int tamanho) {
 }
 
 void imprimeMesa(Mesa*cantina, int numeromesas) {
-	for (int i = 0; i < numeromesas; i++) {
-		cout << cantina[i].numMesa<<endl;
+	int i = 0;
+	while (i < numeromesas) {
+		cout << "MESA N " << cantina[i].numMesa << "   TAMANHO  " << cantina[i].tamanho << endl;
+		i++;
 	}
 
 }
 
-void adicionamesa(Mesa * cantina, identidade * filadeespera, int numerodemesas, int tamanho) {
+void adicionaGrupos(Mesa * cantina, identidade * filadeespera, int numeromesas, int tamanho) {
+	int enter;
+	
+	for (int i = 0; i < numeromesas; i++) {
+			int count_elementos = adicionagrupo(cantina, filadeespera, numeromesas, 50);
+			apagaFilaEspera(filadeespera, count_elementos);
+			imprimeFila(filadeespera, 50);
+			imprimeCantina(cantina, numeromesas);
+
+			cout << "Presione Enter";
+			cin >> enter;
+		}
+
+		
+	}
+		
+
+
+int adicionagrupo(Mesa * cantina, identidade * filadeespera, int numerodemesas, int tamanho) {
 	int i = 0;
 	int j = 0;
 	int num_elmentos = filadeespera[0].n_elementos;
 	int count_elementos = 0;
 	while (i < numerodemesas) {
-		int k = 0;
 		//while( j < tamanho) {
 		cout << "MESA N " << cantina[i].numMesa << "   TAMANHO  " << cantina[i].tamanho << endl;
-			for (int z = 0; z < cantina[i].tamanho && j <tamanho && count_elementos<num_elmentos; z++){
-		
-				cantina[i].pessoas[z] = filadeespera[j];
-				cout << cantina[i].pessoas[z].primeironome<<" | "<< cantina[i].pessoas[z].numerogrupo<< endl;
-				k++;
-				j++;
-				count_elementos++;
-			}
-			i++;
+		for (int z = 0; z < cantina[i].tamanho && j < tamanho && count_elementos < num_elmentos && cantina[i].vagas>0; z++) {
+
+			cantina[i].pessoas[cantina[i].tamanho - cantina[i].vagas] = filadeespera[j];
+			//cout << cantina[i].pessoas[z].primeironome << " | " << cantina[i].pessoas[z].numerogrupo << " | " << cantina[i].pessoas[z].curso << " | Duração : " << cantina[i].pessoas[z].duracao << endl;
+			j++;
+			count_elementos++;
+			cantina[i].vagas--;
 		}
-		
-		
-	//}
+
+		i++;
+	}
+	return count_elementos;
 }
+
+void imprimeCantina(Mesa * cantina, int numerodemesas) {
+	int i = 0;
+	while (i < numerodemesas) {
+		//while( j < tamanho) {
+		cout << "MESA N " << cantina[i].numMesa << "   TAMANHO  " << cantina[i].tamanho << endl;
+		for (int z = 0; z < cantina[i].tamanho; z++) {
+
+			//cantina[i].pessoas[cantina[i].tamanho - cantina[i].vagas] = filadeespera[j];
+			cout << cantina[i].pessoas[z].primeironome << " | " << cantina[i].pessoas[z].numerogrupo << " | " << cantina[i].pessoas[z].curso << " | Duração : " << cantina[i].pessoas[z].duracao << endl;
+			
+		}
+
+		i++;
+	}
+
+}
+
+void apagaFilaEspera(identidade * f, int n_elem) {
+	identidade *  f_temp = new identidade[50];
+	for (int i = n_elem; i < 50; i++) {
+		f[i - n_elem] = f[i];
+	}
+	for (int i = 50 - 1; i >= 50 - n_elem; i--)
+		f[i]= f_temp[i];
+}
+
+/*void adicionamesa(Mesa * cantina, identidade * filadeespera, int numeromesas, int tamanho) {
+	int i = 0;
+	int j = 0;
+	int g = 0;
+	int pessoas = 0;
+
+	while (i < numeromesas) {
+		int num_elementos = filadeespera[g].n_elementos;
+		int countelementos = 0;
+		cout << "MESA N " << cantina[i].numMesa << "   TAMANHO  " << cantina[i].tamanho << endl;
+		if (j == 0) {
+			for (int z = 0; z < cantina[i].tamanho && j < tamanho && countelementos < num_elementos; z++) {
+
+				cantina[i].pessoas[z] = filadeespera[j];
+				cout << cantina[i].pessoas[z].primeironome << " | " << cantina[i].pessoas[z].numerogrupo << " | " << cantina[i].pessoas[z].curso << " | Duração : " << cantina[i].pessoas[z].duracao << endl;
+				j++;
+				countelementos++;
+				pessoas++;
+				g++;
+				cantina[i].vagas--;
+			}
+
+		}
+		i++;
+		/*else if (j > 0 && cantina[i].pessoas[pessoas].numerogrupo == filadeespera[g].numerogrupo) {
+			for (int z = 0; z < cantina[i].tamanho && j < tamanho && countelementos < num_elementos && cantina[i].vagas < cantina[i].tamanho; z++) {
+
+				cantina[i].pessoas[z] = filadeespera[j];
+				cout << cantina[i].pessoas[z].primeironome << " | " << cantina[i].pessoas[z].numerogrupo << " | " << cantina[i].pessoas[z].curso << " | Duração : " << cantina[i].pessoas[z].duracao << endl;
+				j++;
+				countelementos++;
+				pessoas++;
+				g++;
+				cantina[i].vagas--;
+			}
+		}
+		else {
+			i++;
+			for (int z = 0; z < cantina[i].tamanho && j < tamanho && countelementos < num_elementos && cantina[i].vagas < cantina[i].tamanho; z++) {
+
+				cantina[i].pessoas[z] = filadeespera[j];
+				cout << cantina[i].pessoas[z].primeironome << " | " << cantina[i].pessoas[z].numerogrupo << " | " << cantina[i].pessoas[z].curso << " | Duração : " << cantina[i].pessoas[z].duracao << endl;
+				j++;
+				countelementos++;
+				pessoas++;
+				g++;
+				cantina[i].vagas--;
+			}
+			i--;
+		}*/
+	
+
+
+/*void adicionamesa_original(Mesa * cantina, identidade * filadeespera, int numeromesas, int tamanho) {
+	int i = 0;
+	int j = 0;
+	int g = 0;
+	int pessoas = 0;
+
+	while (i < numeromesas) {
+		int num_elementos = filadeespera[g].n_elementos;
+		int countelementos = 0;
+		cout << "MESA N " << cantina[i].numMesa << "   TAMANHO  " << cantina[i].tamanho << endl;
+		if (j == 0) {
+			for (int z = 0; z < cantina[i].tamanho && j < tamanho && countelementos < num_elementos; z++) {
+
+				cantina[i].pessoas[z] = filadeespera[j];
+				cout << cantina[i].pessoas[z].primeironome << " | " << cantina[i].pessoas[z].numerogrupo << " | " << cantina[i].pessoas[z].curso << " | Duração : " << cantina[i].pessoas[z].duracao << endl;
+				j++;
+				countelementos++;
+				pessoas++;
+				g++;
+				cantina[i].vagas--;
+			}
+
+		}
+		else if (j > 0 && cantina[i].pessoas[pessoas].numerogrupo == filadeespera[g].numerogrupo) {
+			for (int z = 0; z < cantina[i].tamanho && j < tamanho && countelementos < num_elementos && cantina[i].vagas < cantina[i].tamanho; z++) {
+
+				cantina[i].pessoas[z] = filadeespera[j];
+				cout << cantina[i].pessoas[z].primeironome << " | " << cantina[i].pessoas[z].numerogrupo << " | " << cantina[i].pessoas[z].curso << " | Duração : " << cantina[i].pessoas[z].duracao << endl;
+				j++;
+				countelementos++;
+				pessoas++;
+				g++;
+				cantina[i].vagas--;
+			}
+		}
+		else {
+			i++;
+			for (int z = 0; z < cantina[i].tamanho && j < tamanho && countelementos < num_elementos && cantina[i].vagas < cantina[i].tamanho; z++) {
+
+				cantina[i].pessoas[z] = filadeespera[j];
+				cout << cantina[i].pessoas[z].primeironome << " | " << cantina[i].pessoas[z].numerogrupo << " | " << cantina[i].pessoas[z].curso << " | Duração : " << cantina[i].pessoas[z].duracao << endl;
+				j++;
+				countelementos++;
+				pessoas++;
+				g++;
+				cantina[i].vagas--;
+			}
+			i--;
+		}
+	}
+}
+	
+
+/*void adicionamesa(Mesa * cantina, identidade * filadeespera, int numeromesas, int tamanho) {
+	int i = 0;
+	int j = 0;
+	int g = 0;
+	int pessoas = 0;
+
+	while (i < numeromesas) {
+		int num_elementos = filadeespera[g].n_elementos;
+		int count_elementos = 0;
+		cout << "MESA N " << cantina[i].numMesa << "   TAMANHO  " << cantina[i].tamanho << endl;
+		for (int z = 0; z < cantina[i].tamanho && j < tamanho && count_elementos < num_elementos; z++) {
+			cantina[i].pessoas[z] = filadeespera[j];
+			cout << cantina[i].pessoas[z].primeironome << " | " << cantina[i].pessoas[z].numerogrupo << " | " << cantina[i].pessoas[z].curso << " | Duração : " << cantina[i].pessoas[z].duracao << endl;
+			j++;
+			count_elementos++;
+		}
+
+		*/
 
 	
