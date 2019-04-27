@@ -41,6 +41,9 @@ int adicionafila(identidade * filadeespera, int posicaovazia, string * pNome, st
 void imprimeFila(identidade * filadeespera, int tamanho); 
 void adicionamesa(Mesa * cantina, identidade * filadeespera, int numerodemesas, int tamanho);
 void imprimeMesa(Mesa*cantina, int numeromesas);
-int adicionagrupo(Mesa * cantina, identidade * filadeespera, int numerodemesas, int tamanho);
+int adicionagrupo(Mesa * cantina, identidade * filadeespera, int numerodemesas, int tamanho, int valorref);
 void apagaFilaEspera(identidade * f, int n_elem);
 void adicionaGrupos(Mesa * cantina, identidade * filadeespera, int numeromesas, int tamanho);
+bool verificagrupo(identidade * filadeespera, int custo);
+int apagaElementoFilaespera(identidade * filadeespera, int custo);
+void atualizagrupo(identidade * filadeespera, int numerogrup, int n_elementos);
