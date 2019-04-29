@@ -2,16 +2,17 @@
 #include <fstream>
 #include <string>
 #include "Cantina.h"
+#include "Fila.h"
 using namespace std;
 
 void InsereRefeição(refeiçao * novaref) {
 	cout << "**************REFEICAO NOVA*****************" << endl;
 	cout << "Necessario uma nova refeicao, por favor atualize os seguintes dados" << endl;
-	cout << "Introduza a entrada: ";
+	cout << "Introduza a entrada: " << endl;
 	getline(cin, novaref->entrada);
-	cout << "Introduza o prato principal: ";
+	cout << "Introduza o prato principal: " << endl;
 	getline(cin, novaref->principal);
-	cout << "Introduza o custo da refeicao: ";
+	cout << "Introduza o custo da refeicao: " << endl;
 	cin >> novaref->custo;
 }
 
@@ -80,85 +81,68 @@ bool decide(bool tipo) {
 
 }
 
+
+
 identidade * criagrupo(string * pNome, string * uNome, string * cursos, int elementos, bool d, int numerogrupo) {
+	//int special = rand() % 100;
 	identidade * novogrupo = new identidade[elementos];
-	int duracaoref = rand() % 4 + 2;
-	int k = rand() % 18;
-	for (int r = 0; r < elementos; r++) {
+	//if (special < 95) {
+		int duracaoref = rand() % 4 + 2;
+		int k = rand() % 18;
+		for (int r = 0; r < elementos; r++) {
+			int i = rand() % 43;
+			int j = rand() % 96;
+			novogrupo[r].special = 0;
+			novogrupo[r].primeironome = pNome[i];
+			novogrupo[r].ultimonome = uNome[j];
+			novogrupo[r].tipo = d;
+			novogrupo[r].n_elementos = elementos;
+			//cout << "-- "<<novogrupo[r].primeironome << endl;
+			if (d) {
+				int id = rand() % 2087318 + 2000000;
+				int dinheiro = rand() % 100 + 1;
+				novogrupo[r].numerogrupo = numerogrupo;
+				novogrupo[r].numeroid = id;
+				novogrupo[r].plafond = dinheiro;
+				novogrupo[r].duracao = duracaoref;
+				novogrupo[r].curso = cursos[k];
+
+			}
+			else {
+				int id = rand() % 2087318 + 2000000;
+				int dinheiro = rand() % 100 + 1;
+				novogrupo[r].numerogrupo = numerogrupo;
+				novogrupo[r].numeroid = id;
+				novogrupo[r].plafond = dinheiro;
+				novogrupo[r].duracao = duracaoref;
+
+			}
+		}
+	
+	/*else {
+		novogrupo = new identidade;
+		int duracaoref = rand() % 4 + 2;
+		int k = rand() % 18;
 		int i = rand() % 43;
 		int j = rand() % 96;
-		novogrupo[r].primeironome = pNome[i];
-		novogrupo[r].ultimonome = uNome[j];
-		novogrupo[r].tipo = d;
-		novogrupo[r].n_elementos = elementos;
-		//cout << "-- "<<novogrupo[r].primeironome << endl;
-		if (d) {
-			int id = rand() % 2087318 + 2000000;
-			int dinheiro = rand() % 100 + 1;
-			novogrupo[r].numerogrupo = numerogrupo;
-			novogrupo[r].numeroid = id;
-			novogrupo[r].plafond = dinheiro;
-			novogrupo[r].duracao = duracaoref;
-			novogrupo[r].curso = cursos[k];
-
-		}
-		else {
-			int id = rand() % 2087318 + 2000000;
-			int dinheiro = rand() % 100 + 1;
-			novogrupo[r].numerogrupo = numerogrupo;
-			novogrupo[r].numeroid = id;
-			novogrupo[r].plafond = dinheiro;
-			novogrupo[r].duracao = duracaoref;
-
-		}
-
+		int id = rand() % 2087318 + 2000000;
+		int dinheiro = rand() % 100 + 1;
+		novogrupo->special = 1;
+		novogrupo->primeironome = pNome[i];
+		novogrupo->ultimonome = uNome[j];
+		novogrupo->n_elementos = 1;
+		novogrupo->numerogrupo = numerogrupo;
+		novogrupo->numeroid = id;
+		novogrupo->plafond = dinheiro;
+		novogrupo->duracao = duracaoref;
+		novogrupo->curso = cursos[k];
+		
 	}
-
+	*/
 	return novogrupo;
 }
 
-int adicionafila(identidade * filadeespera, int posicaovazia, string * pNome, string * uNome, string * cursos) {
-	bool tipo = true;
-	tipo = decide(tipo);
-	int elementos = rand() % 10 + 1;
-	//criagrupo(pNome, uNome, cursos, elementos,tipo);
-	int numerogrup = rand() % 400 + 100;
 
-	if (posicaovazia > 50 - 10)
-		elementos = 50 - posicaovazia;
-
-
-	identidade * novogrupo = criagrupo(pNome, uNome, cursos, elementos, tipo, numerogrup);
-
-	for (int i = 0; i < elementos && (posicaovazia + i < 50); i++) {
-		filadeespera[posicaovazia] = novogrupo[i];
-		posicaovazia++;
-
-	}
-
-
-
-	return posicaovazia - 1;
-
-}
-
-void imprimeFila(identidade * filadeespera, int tamanho) {
-	for (int i = 0; i < tamanho; i++) {
-		//string tipo = filadeespera[i].tipo ? " ALUNO " : " STAFF";
-		//identidade pessoa = filadeespera[i];
-		if (filadeespera[i].tipo == 1) {
-
-			cout << " -> " << "ALUNO" << ", " << filadeespera[i].primeironome << " " << filadeespera[i].ultimonome << ", " << filadeespera[i].curso << ", " << filadeespera[i].numeroid << ", Grupo: " << filadeespera[i].numerogrupo << ", " << filadeespera[i].plafond << " euros, (Duracao: " << filadeespera[i].duracao << ")" << endl;
-		}
-		else {
-			cout << " -> " << "STAFF" << ", " << filadeespera[i].primeironome << " " << filadeespera[i].ultimonome << ", " << filadeespera[i].curso << ", " << filadeespera[i].numeroid << ", Departamento: " << filadeespera[i].numerogrupo << ", " << filadeespera[i].plafond << " euros, (Duracao: " << filadeespera[i].duracao << ")" << endl;
-		}
-		//cout << " -> " << filadeespera[i].tipo << " " << filadeespera[i].primeironome << endl;// << " " << filadeespera[i].ultimonome << ", " << filadeespera[i].curso << ", " << filadeespera[i].numeroid << ", " << filadeespera[i].numerogrupo << ", " << filadeespera[i].plafond << endl;
-
-		cout << endl;
-
-	}
-}
 
 void imprimeMesa(Mesa*cantina, int numeromesas) {
 	int i = 0;
@@ -191,7 +175,7 @@ bool verificagrupo(identidade * filadeespera, int custo) {
 	int num_elmentos = filadeespera[0].n_elementos;
 	
 	for (int j = 0; j < num_elmentos; j++) {
-		cout << "Verificando grupo " << filadeespera[0].numerogrupo<<endl;
+		//cout << "Verificando grupo " << filadeespera[0].numerogrupo<<endl;
 		if (filadeespera[j].plafond < custo) {
 			return false;
 		}
@@ -209,7 +193,7 @@ int adicionagrupo(Mesa * cantina, identidade * filadeespera, int numerodemesas, 
 		
 		//while( j < tamanho) {
 		//cout << "MESA N " << cantina[i].numMesa << "   TAMANHO  " << cantina[i].tamanho << endl;
-		int removidos = 0;
+		//int removidos = 0;
 		for (int z = 0; z < cantina[i].tamanho && j < tamanho && count_elementos < num_elmentos && cantina[i].vagas>0; z++) {
 			
 				cantina[i].pessoas[cantina[i].tamanho - cantina[i].vagas] = filadeespera[j];
@@ -233,7 +217,7 @@ void imprimeCantina(Mesa * cantina, int numerodemesas) {
 		for (int z = 0; z < cantina[i].tamanho; z++) {
 
 			//cantina[i].pessoas[cantina[i].tamanho - cantina[i].vagas] = filadeespera[j];
-			cout << cantina[i].pessoas[z].primeironome << " | " << cantina[i].pessoas[z].numerogrupo << " | " << cantina[i].pessoas[z].curso << " | Duração : " << cantina[i].pessoas[z].duracao << " Plafond : " << cantina[i].pessoas[z].plafond << endl;
+			cout << cantina[i].pessoas[z].primeironome << " | " << cantina[i].pessoas[z].numerogrupo << " | " << cantina[i].pessoas[z].numeroid << " | " << cantina[i].pessoas[z].curso << " | Duração : " << cantina[i].pessoas[z].duracao << " Plafond : " << cantina[i].pessoas[z].plafond << endl;
 			
 		}
 
@@ -242,14 +226,6 @@ void imprimeCantina(Mesa * cantina, int numerodemesas) {
 
 }
 
-void apagaFilaEspera(identidade * f, int n_elem) {
-	identidade *  f_temp = new identidade[50];
-	for (int i = n_elem; i < 50; i++) {
-		f[i - n_elem] = f[i];
-	}
-	for (int i = 50 - 1; i >= 50 - n_elem; i--)
-		f[i]= f_temp[i];
-}
 
 void atualizagrupo(identidade * filadeespera, int numerogrup, int n_elementos) {
 	for (int j = 0; j < 50; j++) {
@@ -261,26 +237,8 @@ void atualizagrupo(identidade * filadeespera, int numerogrup, int n_elementos) {
 
 }
 
-int apagaElementoFilaespera(identidade * filadeespera, int custo) {
-	int valoresremovidos = 0;
-	int num_elementos = filadeespera[0].n_elementos;
-	for (int j = 0; j < num_elementos - 1; j++) {
-		if (filadeespera[j].plafond < custo) {
-			
-			cout << "Apagando elemento" << endl;
-			for (int i = j; i < 48; i++) {
-				filadeespera[i] = filadeespera[i + 1];
-			}
-			valoresremovidos++;
-		//	j++;
-		}
-		
-	}
-	cout << "Ola" << endl;
-	atualizagrupo(filadeespera, filadeespera[0].numerogrupo, num_elementos - valoresremovidos);
 
-	return valoresremovidos;
-}
+
 
 /*int adicionagrupo_modificada(Mesa * cantina, identidade * filadeespera, int numerodemesas, int tamanho,int valorref) {
 	int i = 0;
@@ -319,7 +277,7 @@ int apagaElementoFilaespera(identidade * filadeespera, int custo) {
 		}
 	}
 }
-*/
+
 bool verificaPlafond(identidade pessoa, float valorref) {
 	if (pessoa.plafond < valorref) {
 		return false;
