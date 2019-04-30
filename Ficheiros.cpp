@@ -74,3 +74,24 @@ void escrevecursos(string * cursos, int tamanho) {
 		cout << cursos[i] << endl;
 	}
 }
+
+void InsereFicheiros(string * nome, string filename) {
+
+	int i = 0;
+	ifstream file;
+	file.open(filename);
+	string aux;
+	while (getline(file, aux)) {
+		nome[i] = aux;
+		i++;
+
+	}
+	file.close();
+}
+void escreveFicheiros(string *nome, int tamanho) {
+
+	for (int i = 0; i < tamanho; i++) {
+		cout << nome[i] << endl;
+	}
+}
+

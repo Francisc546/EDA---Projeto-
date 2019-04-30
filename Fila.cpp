@@ -38,7 +38,7 @@ void imprimeFila(identidade * filadeespera, int tamanho) {
 	for (int i = 0; i < tamanho; i++) {
 		//string tipo = filadeespera[i].tipo ? " ALUNO " : " STAFF";
 		//identidade pessoa = filadeespera[i];
-		//if (filadeespera[i].special == 0) {
+		if (filadeespera[i].special == 0) {
 			if (filadeespera[i].tipo == 1) {
 
 				cout << " -> " << "ALUNO" << ", " << filadeespera[i].primeironome << " " << filadeespera[i].ultimonome << ", " << filadeespera[i].curso << ", " << filadeespera[i].numeroid << ", Grupo: " << filadeespera[i].numerogrupo << ", " << filadeespera[i].plafond << " euros, (Duracao: " << filadeespera[i].duracao << ")" << endl;
@@ -48,18 +48,18 @@ void imprimeFila(identidade * filadeespera, int tamanho) {
 			}
 		}
 		/*else {
-			if (filadeespera[i].tipo == 1) 
+			if (filadeespera[i].tipo == 1)
 
 				cout << " -> " << "ALUNO ESPECIAL" << ", " << filadeespera[i].primeironome << " " << filadeespera[i].ultimonome << ", " << filadeespera[i].curso << ", " << filadeespera[i].numeroid << ", Grupo: " << filadeespera[i].numerogrupo << ", " << filadeespera[i].plafond << " euros, (Duracao: " << filadeespera[i].duracao << ")" << endl;
-			
-			
-		}*/
-		
-		//cout << " -> " << filadeespera[i].tipo << " " << filadeespera[i].primeironome << endl;// << " " << filadeespera[i].ultimonome << ", " << filadeespera[i].curso << ", " << filadeespera[i].numeroid << ", " << filadeespera[i].numerogrupo << ", " << filadeespera[i].plafond << endl;
 
-		cout << endl;
+
+		}*/
+
+
+		
 
 	}
+}
 
 
 void apagaFilaEspera(identidade * f, int n_elem) {

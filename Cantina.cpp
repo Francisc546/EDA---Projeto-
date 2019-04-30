@@ -3,12 +3,16 @@
 #include <string>
 #include "Cantina.h"
 #include "Fila.h"
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 void InsereRefeição(refeiçao * novaref) {
 	cout << "**************REFEICAO NOVA*****************" << endl;
 	cout << "Necessario uma nova refeicao, por favor atualize os seguintes dados" << endl;
 	cout << "Introduza a entrada: " << endl;
+	cin.sync();
+	cin.seekg(0);
 	getline(cin, novaref->entrada);
 	cout << "Introduza o prato principal: " << endl;
 	getline(cin, novaref->principal);
@@ -137,8 +141,8 @@ identidade * criagrupo(string * pNome, string * uNome, string * cursos, int elem
 		novogrupo->duracao = duracaoref;
 		novogrupo->curso = cursos[k];
 		
-	}
-	*/
+	}*/
+	
 	return novogrupo;
 }
 
@@ -184,22 +188,51 @@ bool verificagrupo(identidade * filadeespera, int custo) {
 	return true;
 }
 
+
 int adicionagrupo(Mesa * cantina, identidade * filadeespera, int numerodemesas, int tamanho, int valorref) {
 	int i = 0;
 	int j = 0;
 	int num_elmentos = filadeespera[0].n_elementos;
 	int count_elementos = 0;
 	while (i < numerodemesas) {
-		
+
 		//while( j < tamanho) {
 		//cout << "MESA N " << cantina[i].numMesa << "   TAMANHO  " << cantina[i].tamanho << endl;
 		//int removidos = 0;
 		for (int z = 0; z < cantina[i].tamanho && j < tamanho && count_elementos < num_elmentos && cantina[i].vagas>0; z++) {
-			
+			if (cantina[i].pessoas[0].curso == filadeespera[j].curso || cantina[i].tamanho == cantina[i].vagas || !filadeespera[i].tipo) {
 				cantina[i].pessoas[cantina[i].tamanho - cantina[i].vagas] = filadeespera[j];
 				//cout << cantina[i].pessoas[z].primeironome << " | " << cantina[i].pessoas[z].numerogrupo << " | " << cantina[i].pessoas[z].curso << " | Duração : " << cantina[i].pessoas[z].duracao << endl;
 				count_elementos++;
 				cantina[i].vagas--;
+
+				j++;
+			}
+			else
+				cout << "CURSO DIFERENTE " << endl;
+		}
+
+		i++;
+	}
+	return count_elementos;
+}
+
+int adicionagrupoANTIGO(Mesa * cantina, identidade * filadeespera, int numerodemesas, int tamanho, int valorref) {
+	int i = 0;
+	int j = 0;
+	int num_elmentos = filadeespera[0].n_elementos;
+	int count_elementos = 0;
+	while (i < numerodemesas) {
+
+		//while( j < tamanho) {
+		//cout << "MESA N " << cantina[i].numMesa << "   TAMANHO  " << cantina[i].tamanho << endl;
+		//int removidos = 0;
+		for (int z = 0; z < cantina[i].tamanho && j < tamanho && count_elementos < num_elmentos && cantina[i].vagas>0; z++) {
+
+			cantina[i].pessoas[cantina[i].tamanho - cantina[i].vagas] = filadeespera[j];
+			//cout << cantina[i].pessoas[z].primeironome << " | " << cantina[i].pessoas[z].numerogrupo << " | " << cantina[i].pessoas[z].curso << " | Duração : " << cantina[i].pessoas[z].duracao << endl;
+			count_elementos++;
+			cantina[i].vagas--;
 
 			j++;
 		}
@@ -236,6 +269,83 @@ void atualizagrupo(identidade * filadeespera, int numerogrup, int n_elementos) {
 	}
 
 }
+
+
+void grava(Mesa * cantina, int numeromesas, identidade * filadeespera , refeiçao * novaref) {
+	fstream file;
+	file.open("dadosGravados.txt", ios::out);
+	file << "************ Refeição" << endl << "Entrada: " << novaref->entrada << endl;
+	file << "Prato Principal: " << novaref->principal << endl;
+	file << "Custo: " << novaref->custo << endl;
+	file << "************ Mesas com o pessoal" << endl;
+	int i = 0;
+	int tamanho = 50;
+	while (i < numeromesas) {
+		file << "----------------------------------------" << endl;
+		file << "Mesa Nº " << cantina[i].numMesa << " (Capacidade " << cantina[i].tamanho << ")" << endl;
+		for (int z = 0; z < cantina[i].tamanho; z++) {
+			if (cantina[i].pessoas[z].tipo == 1) {
+				file << "Tipo: Aluno"
+					<< "   ||   Primeiro nome: " << cantina[i].pessoas[z].primeironome
+					<< "   ||   Último nome: " << cantina[i].pessoas[z].ultimonome
+					<< "   ||   Número de grupo: " << cantina[i].pessoas[z].numerogrupo
+					<< "   ||   Curso: " << cantina[i].pessoas[z].curso
+					<< "   ||   Duração: " << cantina[i].pessoas[z].duracao
+					<< "   ||   Plafond: " << cantina[i].pessoas[z].plafond
+					<< "   ||   Número de id: " << cantina[i].pessoas[z].numeroid
+					<< endl;
+				file << endl;
+			}
+			else {
+				file << "Tipo: Staff"
+					<< "   ||   Primeiro nome: " << cantina[i].pessoas[z].primeironome
+					<< "   ||   Último nome: " << cantina[i].pessoas[z].ultimonome
+					<< "   ||   Número de grupo: " << cantina[i].pessoas[z].numerogrupo
+					<< "   ||   Curso: " << cantina[i].pessoas[z].curso
+					<< "   ||   Duração: " << cantina[i].pessoas[z].duracao
+					<< "   ||   Plafond: " << cantina[i].pessoas[z].plafond
+					<< "   ||   Número de id: " << cantina[i].pessoas[z].numeroid
+					<< endl;
+				file << endl;
+			}
+
+
+
+		}
+
+		i++;
+	}
+	file << "************ Fila de espera" << endl;
+	for (int i = 0; i < tamanho; i++) {
+
+		if (filadeespera[i].tipo == 1) {
+
+			file << " -> " << "ALUNO" << ", " << filadeespera[i].primeironome << " " << filadeespera[i].ultimonome << ", " << filadeespera[i].curso << ", " << filadeespera[i].numeroid << ", Grupo: " << filadeespera[i].numerogrupo << ", " << filadeespera[i].plafond << " euros, (Duracao: " << filadeespera[i].duracao << ")" << endl;
+		}
+		else {
+			file << " -> " << "STAFF" << ", " << filadeespera[i].primeironome << " " << filadeespera[i].ultimonome << ", " << filadeespera[i].curso << ", " << filadeespera[i].numeroid << ", Departamento: " << filadeespera[i].numerogrupo << ", " << filadeespera[i].plafond << " euros, (Duracao: " << filadeespera[i].duracao << ")" << endl;
+		}
+	}
+	file << endl;
+	file << "*********** Está tudo guardado" << endl;
+	file.close();
+	cout << "Guardado com sucesso " << endl;
+}
+
+
+void opcoes(identidade * filadeespera, int tamanho) {
+	string nome[50];
+	for (int i = 0; i < tamanho; i++) {
+		filadeespera[i].ultimonome = nome[i];
+	}
+	vector <string> WordArray(nome, nome + 50);
+	sort(begin(WordArray), end(WordArray));
+	for (auto& Word : WordArray) {
+		cout << Word << endl;
+	}
+	
+}
+
 
 
 

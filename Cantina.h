@@ -43,3 +43,5 @@ int adicionagrupo(Mesa * cantina, identidade * filadeespera, int numerodemesas, 
 void adicionaGrupos(Mesa * cantina, identidade * filadeespera, int numeromesas, int tamanho);
 bool verificagrupo(identidade * filadeespera, int custo);
 void atualizagrupo(identidade * filadeespera, int numerogrup, int n_elementos);
+void grava(Mesa * cantina, int numeromesas, identidade * filadeespera, refeiçao * novaref);
+void opcoes(identidade * filadeespera, int tamanho);
