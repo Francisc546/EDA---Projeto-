@@ -1,0 +1,52 @@
+int adicionagrupo(Mesa * cantina, identidade * filadeespera, int numerodemesas, int tamanho, int valorref) {
+	int i = 0;
+	int j = 0;
+	int num_elmentos = filadeespera[0].n_elementos;
+	int count_elementos = 0;
+	while (i < numerodemesas) {
+		if (cantina[i - 1].vagas == 0 || j == 0) {
+			for (int z = 0; z < cantina[i].tamanho && j < tamanho && count_elementos < num_elmentos && cantina[i].vagas>0; z++) {
+
+				cantina[i].pessoas[cantina[i].tamanho - cantina[i].vagas] = filadeespera[j];
+				//cout << cantina[i].pessoas[z].primeironome << " | " << cantina[i].pessoas[z].numerogrupo << " | " << cantina[i].pessoas[z].curso << " | Duração : " << cantina[i].pessoas[z].duracao << endl;
+				count_elementos++;
+				cantina[i].vagas--;
+
+				j++;
+			}
+			i++;
+		}
+		else if (cantina[i - 1].vagas != 0) {
+			if (filadeespera[j].numerogrupo != cantina[i - 1].pessoas[0].numerogrupo) {
+				for (int z = 0; z < cantina[i].tamanho && j < tamanho && cantina[i].vagas>0; z++) {
+
+					cantina[i].pessoas[cantina[i].tamanho - cantina[i].vagas] = filadeespera[j];
+					//cout << cantina[i].pessoas[z].primeironome << " | " << cantina[i].pessoas[z].numerogrupo << " | " << cantina[i].pessoas[z].curso << " | Duração : " << cantina[i].pessoas[z].duracao << endl;
+					count_elementos++;
+					cantina[i].vagas--;
+
+					j++;
+
+				}
+				i++;
+			}else {
+				i--;
+				for (int z = cantina[i].tamanho - cantina[i].vagas; z < cantina[i].tamanho; z++) {
+					cantina[i].pessoas[cantina[i].tamanho - cantina[i].vagas] = filadeespera[j];
+					count_elementos++;
+					cantina[i].vagas--;
+					j++;
+
+				}
+				i++;
+			
+			}
+		}
+
+		
+
+
+		//i++;
+	}
+	return count_elementos;
+}
