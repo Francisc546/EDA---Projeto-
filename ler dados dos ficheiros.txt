@@ -1,6 +1,0 @@
-************ No Main
-//Estas funções já estão defenidas em Ficheiros.h 
-string * dados = new string;
-ngLinhas = contaLinhas("nomedoficheiro.txt");
-InsrepNome(dados, "nomedoficheiro.txt");
-escrevepNome(dados, ngLinhas);
