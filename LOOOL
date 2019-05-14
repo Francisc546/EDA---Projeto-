@@ -1,4 +1,4 @@
-int adicionagrupo(Mesa * cantina, identidade * filadeespera, int numerodemesas, int tamanho, int valorref) {
+﻿int adicionagrupo(Mesa * cantina, identidade * filadeespera, int numerodemesas, int tamanho, int valorref) {
 	int i = 0;
 	int j = 0;
 	int num_elmentos = filadeespera[0].n_elementos;
