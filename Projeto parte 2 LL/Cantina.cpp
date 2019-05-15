@@ -7,7 +7,7 @@
 using namespace std;
 
 
-void InsereRefeição(refeicao * novaref) {
+void InsereRefeicao(refeicao * novaref) {
 	cout << "**************REFEICAO NOVA*****************" << endl;
 	cout << "Necessario uma nova refeicao, por favor atualize os seguintes dados" << endl;
 	cout << "Introduza a entrada: " << endl;
@@ -21,7 +21,7 @@ void InsereRefeição(refeicao * novaref) {
 }
 
 
-void ImprimeRefeição(refeicao * novaref) {
+void ImprimeRefeicao(refeicao * novaref) {
 	cout << "Refeicao Atual: " << endl;
 	cout << "\t Entrada: " << novaref->entrada << endl;
 	cout << "\t Prato Principal: " << novaref->principal << endl;
@@ -232,4 +232,54 @@ void escreveFiladeEspera(identidade * filadeespera) {
 		aux = aux->seguinte;	
 	}
 	cout << endl;
+}
+
+
+bool verificagrupo(identidade * filadeespera, int custo) { // funçao que verifica o plafond um a um dos elementos do grupo
+
+
+	int num_grupo = filadeespera->numerogrupo;
+	identidade * aux = filadeespera;
+	while(aux->seguinte->numerogrupo != num_grupo){
+		if (aux->plafond < custo) {
+			return false;
+			break;
+		}
+		
+		aux = aux->seguinte;
+		
+	}
+	return true;
+
+}
+
+/*identidade * removerInicio(identidade * filadeespera) {
+	identidade * aux = filadeespera;
+	filadeespera = filadeespera->seguinte;
+	delete aux;
+	return filadeespera;
+}
+
+void removerFim(identidade * filadeespera) {
+	identidade * iterator = filadeespera;
+
+	while (iterator->seguinte->seguinte != NULL) {
+		iterator = iterator->seguinte;
+	}
+
+	identidade * aux = iterator->seguinte;
+	iterator->seguinte = NULL;
+	delete aux;
+}*/
+void removeElemento(identidade * filadeespera, int custo) {
+	int num_grupo = filadeespera->numerogrupo;
+	identidade * iterator = filadeespera;
+	while (iterator->seguinte->numerogrupo != num_grupo) {
+		if (iterator->plafond < custo) {
+			identidade * aux = iterator->seguinte;
+			iterator->seguinte = iterator->seguinte->seguinte;
+			delete aux;
+		}
+	}
+
 }
