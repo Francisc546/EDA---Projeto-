@@ -6,11 +6,6 @@
 using namespace std;
 
 int contaLinhas(string filename);
-void InserepNome(string * pNome, string filename);
-void InsereuNome(string * uNome, string filename);
-void InsereCurso(string * cursos, string filename);
-void escrevepNome(string * pNome, int tamanho);
-void escreveuNome(string * uNome, int tamanho);
-void escrevecursos(string * cursos, int tamanho);
+void Insere(string * Nome, string filename, int tamanho);
 void InsereFicheiros(string * nome, string filename);
 void escreveFicheiros(string *nome, int tamanho);

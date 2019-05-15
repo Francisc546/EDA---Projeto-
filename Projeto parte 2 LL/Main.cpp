@@ -17,9 +17,9 @@ int main() {
 	string * pNome = new string[tamanhopNome];
 	string * uNome = new string[tamanhouNome];
 	string * cursos = new string[tamanhocursos];
-	InserepNome(pNome, "primeiro_nome.txt"); // insere os primeiros nomes no array pNome
-	InsereuNome(uNome, "ultimo_nome.txt"); // insere os ultimos nomes no array uNome
-	InsereCurso(cursos, "cursos.txt"); // insere os cursos no array cursos
+	Insere(pNome, "primeiro_nome.txt",tamanhopNome); // insere os primeiros nomes no array pNome
+	Insere(uNome, "ultimo_nome.txt",tamanhouNome); // insere os ultimos nomes no array uNome
+	Insere(cursos, "cursos.txt",tamanhocursos); // insere os cursos no array cursos
 
 	identidade * filadeespera = NULL;
 	filadeespera = criagrupo(filadeespera, pNome, uNome, cursos);
@@ -36,10 +36,10 @@ int main() {
 	do {
 		int ciclos = 10;
 		refeicao * novaref = new refeicao;
-		InsereRefeição(novaref);
+		InsereRefeicao(novaref);
 		system("cls");
 		cout << "-------------------------CANTINA EDA ------------------------------" << endl;
-		ImprimeRefeição(novaref);
+		ImprimeRefeicao(novaref);
 		escreveFiladeEspera(filadeespera);
 		imprimeCantina(mesas);
 
