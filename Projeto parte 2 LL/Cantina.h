@@ -5,7 +5,7 @@
 #include <string>
 using namespace std;
 
-struct refeiçao {
+struct refeicao {
 
 	string entrada;
 	string principal;
@@ -35,6 +35,9 @@ struct Mesa {
 identidade * criagrupo(identidade*filadeespera, string * pNome, string * uNome, string * cursos);
 void escreveFiladeEspera(identidade * filadeespera);
 identidade * adiciona_filadeespera(identidade*filadeespera, identidade*novo);
-void imprimeCantina(Mesa * mesas, int numerodemesas);
+void imprimeCantina(Mesa * mesas);
 Mesa * criamesas(Mesa*mesas, int tamanhodacantina);
 Mesa * adiciona_mesas(Mesa*mesas, Mesa*novo);
+void InsereRefeição(refeicao * novaref);
+void ImprimeRefeição(refeicao * novaref);
+identidade * criaespecial(identidade*filadeespera, string * pNome, string * uNome, string * cursos);

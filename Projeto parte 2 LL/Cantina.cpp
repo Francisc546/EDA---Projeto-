@@ -3,9 +3,31 @@
 #include <string>
 #include "Cantina.h"
 #include "Ficheiros.h"
-#include <vector>
-#include <algorithm>
+
 using namespace std;
+
+
+void InsereRefeição(refeicao * novaref) {
+	cout << "**************REFEICAO NOVA*****************" << endl;
+	cout << "Necessario uma nova refeicao, por favor atualize os seguintes dados" << endl;
+	cout << "Introduza a entrada: " << endl;
+	cin.sync();
+	cin.seekg(0);
+	getline(cin, novaref->entrada); // uso do getline para obter a linha toda e não apenas a primeira palavra
+	cout << "Introduza o prato principal: " << endl;
+	getline(cin, novaref->principal);
+	cout << "Introduza o custo da refeicao: " << endl;
+	cin >> novaref->custo;
+}
+
+
+void ImprimeRefeição(refeicao * novaref) {
+	cout << "Refeicao Atual: " << endl;
+	cout << "\t Entrada: " << novaref->entrada << endl;
+	cout << "\t Prato Principal: " << novaref->principal << endl;
+	cout << "\t Custo: " << novaref->custo << " euros " << endl;
+
+}
 
 
 identidade * adiciona_filadeespera(identidade*filadeespera, identidade*novo) {
@@ -73,7 +95,7 @@ Mesa * criamesas(Mesa*mesas, int tamanhodacantina) {
 
 }
 
-void imprimeCantina(Mesa * mesas, int numerodemesas) {
+void imprimeCantina(Mesa * mesas) {
 	Mesa*aux = mesas;
 	while (aux != NULL) {
 		cout << "MESA N " << aux->numMesa << "   TAMANHO  " << aux->tamanho << endl;
@@ -111,7 +133,7 @@ bool decide(bool tipo) { // funcao que decide qual vai ser o tipo do grupo criad
 
 
 identidade * criagrupo(identidade*filadeespera, string * pNome, string * uNome, string * cursos) {
-	int aletorio = rand() % 10 + 1;
+	int aletorio = rand() % 2+2;
 	for (int i = 0; i < aletorio; i++) {
 		bool tipo = true;
 		tipo = decide(tipo);
@@ -153,6 +175,46 @@ identidade * criagrupo(identidade*filadeespera, string * pNome, string * uNome, 
 
 
 	return filadeespera;
+}
+
+
+identidade * criaespecial (identidade*filadeespera, string * pNome, string * uNome, string * cursos){
+	identidade * especial = new identidade;
+	bool tipo = true;
+	tipo = decide(tipo);
+	int numerogrupo = rand() % 400 + 100;
+	int duracao_ref = rand() % 4 + 2;
+	int k = rand() % 18; // seleciona um curso ( o ficheiro possui 19 cursos , mas como o array começa na posição 0 logo tem de ser ate 18)
+	int i = rand() % 43; // seleciona um primeiro nome do array
+	int j = rand() % 96; // seleciona um ultimo nome do array
+	especial->primeironome = pNome[i];
+	especial->ultimonome = uNome[j];
+	especial->duracao = duracao_ref;
+	especial->tipo = tipo;
+	especial->n_elementos = 1;
+	if (tipo) {
+		int id = rand() % 2087318 + 2000000;
+		int dinheiro = rand() % 100 + 1;
+		especial->numerogrupo = numerogrupo;
+		especial->numeroid = id;
+		especial->plafond = dinheiro;
+		especial->duracao = duracao_ref;
+		especial->curso = cursos[k];
+
+	}
+	else {
+		int id = rand() % 2087318 + 2000000;
+		int dinheiro = rand() % 100 + 1;
+		especial->numerogrupo = numerogrupo;
+		especial->numeroid = id;
+		especial->plafond = dinheiro;
+		especial->duracao = duracao_ref;
+
+	}
+	filadeespera = especial;
+	return filadeespera;
+
+
 }
 
 void escreveFiladeEspera(identidade * filadeespera) {
