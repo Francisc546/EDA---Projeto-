@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 #include "Cantina.h"
-#include "Ficheiros.h"
+#include "Ficheiros.h"f
 
 using namespace std;
 
@@ -13,7 +13,7 @@ void InsereRefeicao(refeicao * novaref) {
 	cout << "Introduza a entrada: " << endl;
 	cin.sync();
 	cin.seekg(0);
-	getline(cin, novaref->entrada); // uso do getline para obter a linha toda e n„o apenas a primeira palavra
+	getline(cin, novaref->entrada); // uso do getline para obter a linha toda e n√£o apenas a primeira palavra
 	cout << "Introduza o prato principal: " << endl;
 	getline(cin, novaref->principal);
 	cout << "Introduza o custo da refeicao: " << endl;
@@ -62,6 +62,14 @@ Mesa * adiciona_mesas(Mesa*mesas, Mesa*novo) {
 	}
 	return mesas;
 }
+
+identidade * adiciona_especial(identidade*filadeespera, identidade*novo) {
+	identidade * aux = novo;
+	novo->seguinte = filadeespera;
+	filadeespera = novo;
+	return filadeespera;
+}
+
 Mesa * criamesas(Mesa*mesas, int tamanhodacantina) {
 	int tamanho = tamanhodacantina;
 	int n_mesa = 1;
@@ -98,17 +106,11 @@ Mesa * criamesas(Mesa*mesas, int tamanhodacantina) {
 void imprimeCantina(Mesa * mesas) {
 	Mesa*aux = mesas;
 	while (aux != NULL) {
-		cout << "MESA N " << aux->numMesa << "   TAMANHO  " << aux->tamanho << endl;
-		for (int z = 0; z < aux->tamanho; z++) {
-
-			if (aux->pessoas[z].tipo == 1) {// se for aluno
-				cout << aux->pessoas[z].primeironome << " , aluno , grupo " << aux->pessoas[z].numerogrupo << " | " << aux->pessoas[z].numeroid << " | " << aux->pessoas[z].curso << " | (ciclos restantes: " << aux->pessoas[z].duracao << ") Plafond : " << aux->pessoas[z].plafond << endl;
-
-			}
-			else { // se for staff
-
-				cout << aux->pessoas[z].primeironome << " , staff , departamento " << aux->pessoas[z].numerogrupo << " | " << aux->pessoas[z].numeroid << " | (ciclos restantes: " << aux->pessoas[z].duracao << ") Plafond : " << aux->pessoas[z].plafond << endl;
-			}
+		cout << "MESA N: " << aux->numMesa << "   TAMANHO:  " << aux->tamanho << endl;
+		while(aux->pessoas!=NULL){
+			cout << aux->pessoas->entidade << aux->pessoas->primeironome << " , grupo " << aux->pessoas->numerogrupo << " | " << aux->pessoas->numeroid << " | " << aux->pessoas->curso << " | (ciclos restantes: " << aux->pessoas->duracao << ") Plafond : " << aux->pessoas->plafond << endl;
+			aux->pessoas = aux->pessoas->seguinte;
+			
 		}
 		aux = aux->seguinte;
 		
@@ -119,7 +121,7 @@ void imprimeCantina(Mesa * mesas) {
 
 
 
-bool decide(bool tipo) { // funcao que decide qual vai ser o tipo do grupo criado, se for gerado um numero abaixo de 75 È aluno , caso contrario È staff
+bool decide(bool tipo) { // funcao que decide qual vai ser o tipo do grupo criado, se for gerado um numero abaixo de 75 √© aluno , caso contrario √© staff
 	int spawn = rand() % 100 + 1;
 	if (spawn <= 75) {
 		return true;
@@ -132,15 +134,14 @@ bool decide(bool tipo) { // funcao que decide qual vai ser o tipo do grupo criad
 
 
 
-identidade * criagrupo(identidade*filadeespera, string * pNome, string * uNome, string * cursos) {
-	int aletorio = rand() % 2+2;
-	for (int i = 0; i < aletorio; i++) {
+identidade * criagrupo(identidade*filadeespera, string * pNome, string * uNome, string * cursos, int aleatorio) {
+	for (int i = 0; i < aleatorio; i++) {
 		bool tipo = true;
 		tipo = decide(tipo);
 		int elementos = rand() % 10 + 1;
 		int numerogrupo = rand() % 400 + 100;
 		int duracao_ref = rand() % 4 + 2;
-		int k = rand() % 18; // seleciona um curso ( o ficheiro possui 19 cursos , mas como o array comeÁa na posiÁ„o 0 logo tem de ser ate 18)
+		int k = rand() % 18; // seleciona um curso ( o ficheiro possui 19 cursos , mas como o array come√ßa na posi√ß√£o 0 logo tem de ser ate 18)
 		for (int r = 0; r < elementos; r++) {
 			identidade * grupo = new identidade;
 			int i = rand() % 43; // seleciona um primeiro nome do array
@@ -157,6 +158,7 @@ identidade * criagrupo(identidade*filadeespera, string * pNome, string * uNome, 
 				grupo->plafond = dinheiro;
 				grupo->duracao = duracao_ref;
 				grupo->curso = cursos[k];
+				grupo->entidade = "Aluno ";
 
 			}
 			else {
@@ -166,6 +168,7 @@ identidade * criagrupo(identidade*filadeespera, string * pNome, string * uNome, 
 				grupo->numeroid = id;
 				grupo->plafond = dinheiro;
 				grupo->duracao = duracao_ref;
+				grupo->entidade = "Staff ";
 
 			}
 			filadeespera = adiciona_filadeespera(filadeespera, grupo);
@@ -180,38 +183,26 @@ identidade * criagrupo(identidade*filadeespera, string * pNome, string * uNome, 
 
 identidade * criaespecial (identidade*filadeespera, string * pNome, string * uNome, string * cursos){
 	identidade * especial = new identidade;
-	bool tipo = true;
-	tipo = decide(tipo);
 	int numerogrupo = rand() % 400 + 100;
 	int duracao_ref = rand() % 4 + 2;
-	int k = rand() % 18; // seleciona um curso ( o ficheiro possui 19 cursos , mas como o array comeÁa na posiÁ„o 0 logo tem de ser ate 18)
+	int k = rand() % 18; // seleciona um curso ( o ficheiro possui 19 cursos , mas como o array come√ßa na posi√ß√£o 0 logo tem de ser ate 18)
 	int i = rand() % 43; // seleciona um primeiro nome do array
 	int j = rand() % 96; // seleciona um ultimo nome do array
 	especial->primeironome = pNome[i];
 	especial->ultimonome = uNome[j];
 	especial->duracao = duracao_ref;
-	especial->tipo = tipo;
+	especial->entidade = "Especial ";
 	especial->n_elementos = 1;
-	if (tipo) {
-		int id = rand() % 2087318 + 2000000;
-		int dinheiro = rand() % 100 + 1;
-		especial->numerogrupo = numerogrupo;
-		especial->numeroid = id;
-		especial->plafond = dinheiro;
-		especial->duracao = duracao_ref;
-		especial->curso = cursos[k];
+	int id = rand() % 2087318 + 2000000;
+	int dinheiro = rand() % 100 + 1;
+	especial->numerogrupo = numerogrupo;
+	especial->numeroid = id;
+	especial->plafond = dinheiro;
+	especial->duracao = duracao_ref;
+	especial->curso = cursos[k];
 
-	}
-	else {
-		int id = rand() % 2087318 + 2000000;
-		int dinheiro = rand() % 100 + 1;
-		especial->numerogrupo = numerogrupo;
-		especial->numeroid = id;
-		especial->plafond = dinheiro;
-		especial->duracao = duracao_ref;
 
-	}
-	filadeespera = especial;
+	filadeespera = adiciona_especial(filadeespera, especial);
 	return filadeespera;
 
 
@@ -221,21 +212,13 @@ void escreveFiladeEspera(identidade * filadeespera) {
 	identidade * aux = filadeespera;
 
 	while (aux != NULL) {
-		if (aux->tipo == 1) {
-
-			cout << " -> " << "ALUNO" << ", " << aux->primeironome << " " << aux->ultimonome << ", " << aux->curso << ", " << aux->numeroid << ", Grupo: " << aux->numerogrupo << ", " << aux->plafond << " euros, (Duracao: " << aux->duracao << ")" << endl;
-		}
-		else {
-			cout << " -> " << "STAFF" << ", " << aux->primeironome << " " << aux->ultimonome << ", " << aux->curso << ", " << aux->numeroid << ", Departamento: " << aux->numerogrupo << ", " << aux->plafond << " euros, (Duracao: " << aux->duracao << ")" << endl;
-		}
-
+		cout << " -> " << aux->entidade << ", " << aux->primeironome << " " << aux->ultimonome << ", " << aux->curso << ", " << aux->numeroid << ", Grupo: " << aux->numerogrupo << ", " << aux->plafond << " euros, (Duracao: " << aux->duracao << ")" << endl;
 		aux = aux->seguinte;	
 	}
 	cout << endl;
 }
 
-
-bool verificagrupo(identidade * filadeespera, int custo) { // funÁao que verifica o plafond um a um dos elementos do grupo
+bool verificagrupo(identidade * filadeespera, int custo) { // fun√ßao que verifica o plafond um a um dos elementos do grupo
 
 
 	int num_grupo = filadeespera->numerogrupo;
@@ -307,7 +290,7 @@ int comprimento(identidade * filadeespera) {
 	int contador = 0;
 	identidade * aux = filadeespera;
 	int numerogrupo = filadeespera->numerogrupo;
-	while (aux->numerogrupo == numerogrupo)//enquanto n„o chegar ao fim da LL
+	while (aux->numerogrupo == numerogrupo)//enquanto n√£o chegar ao fim da LL
 	{
 		contador++;
 		aux = aux->seguinte; //vai para o nodo seguinte
