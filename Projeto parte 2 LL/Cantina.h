@@ -12,7 +12,7 @@ struct refeicao {
 	float custo;
 };
 struct identidade {
-	//int special;
+	float entidade;
 	string primeironome, ultimonome;
 	int numeroid, numerogrupo, duracao;
 	string curso;
@@ -32,7 +32,8 @@ struct Mesa {
 	Mesa* seguinte;
 
 };
-identidade * criagrupo(identidade*filadeespera, string * pNome, string * uNome, string * cursos);
+identidade * adiciona_especial(identidade*filadeespera, identidade*novo);
+identidade * criagrupo(identidade*filadeespera, string * pNome, string * uNome, string * cursos,int aleatorio);
 void escreveFiladeEspera(identidade * filadeespera);
 identidade * adiciona_filadeespera(identidade*filadeespera, identidade*novo);
 void imprimeCantina(Mesa * mesas);
