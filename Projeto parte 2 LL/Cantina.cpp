@@ -240,8 +240,9 @@ bool verificagrupo(identidade * filadeespera, int custo) { // funçao que verific
 
 	int num_grupo = filadeespera->numerogrupo;
 	identidade * aux = filadeespera;
-	while(aux->seguinte->numerogrupo != num_grupo){
+	while(aux->numerogrupo == num_grupo){
 		if (aux->plafond < custo) {
+			cout << aux->plafond << endl;
 			return false;
 			break;
 		}
@@ -253,7 +254,22 @@ bool verificagrupo(identidade * filadeespera, int custo) { // funçao que verific
 
 }
 
-/*identidade * removerInicio(identidade * filadeespera) {
+int retornapos(identidade * filadeespera, int custo) {
+	int count = 0;
+	int num_grupo = filadeespera->numerogrupo;
+	identidade * aux = filadeespera;
+	while (aux->numerogrupo == num_grupo) {
+		if (aux->plafond < custo) {
+			return count;
+			break;
+		}
+		count++;
+		aux = aux->seguinte;
+	}
+}
+	
+
+identidade * removerInicio(identidade * filadeespera) {
 	identidade * aux = filadeespera;
 	filadeespera = filadeespera->seguinte;
 	delete aux;
@@ -270,16 +286,65 @@ void removerFim(identidade * filadeespera) {
 	identidade * aux = iterator->seguinte;
 	iterator->seguinte = NULL;
 	delete aux;
-}*/
-void removeElemento(identidade * filadeespera, int custo) {
+}
+
+/*void removeElemento(identidade * filadeespera, int custo) {
 	int num_grupo = filadeespera->numerogrupo;
 	identidade * iterator = filadeespera;
-	while (iterator->seguinte->numerogrupo != num_grupo) {
+	while (iterator->numerogrupo == num_grupo) {
 		if (iterator->plafond < custo) {
 			identidade * aux = iterator->seguinte;
 			iterator->seguinte = iterator->seguinte->seguinte;
 			delete aux;
+			break;
 		}
+		iterator = iterator->seguinte;
+	}
+
+}*/
+
+int comprimento(identidade * filadeespera) {
+	int contador = 0;
+	identidade * aux = filadeespera;
+	int numerogrupo = filadeespera->numerogrupo;
+	while (aux->numerogrupo == numerogrupo)//enquanto não chegar ao fim da LL
+	{
+		contador++;
+		aux = aux->seguinte; //vai para o nodo seguinte
+	}
+	return contador;
+}
+
+
+identidade * removerPos(identidade * filadeespera, int pos, int custo) {
+	int tamanho = comprimento(filadeespera);
+	int numgrupo = filadeespera->numerogrupo;
+	identidade * aux = filadeespera;
+	while (aux->numerogrupo == numgrupo) {
+		if (aux->plafond < custo) {
+			if (pos == 0) {
+				return removerInicio(filadeespera);
+			}
+			else if (pos == tamanho) {
+				removerFim(filadeespera);
+				return filadeespera;
+			}
+
+			else {
+				identidade * iterator = filadeespera;
+				int pos_count = 1;
+				while (iterator->seguinte != NULL && pos != pos_count) {
+					iterator = iterator->seguinte;
+					pos_count++;
+				}
+				identidade * aux = iterator->seguinte;
+				iterator->seguinte = iterator->seguinte->seguinte;
+				delete aux;
+				return filadeespera;
+			}
+			break;
+		}
+		aux = aux->seguinte;
 	}
 
 }

@@ -43,3 +43,8 @@ void ImprimeRefeicao(refeicao * novaref);
 identidade * criaespecial(identidade*filadeespera, string * pNome, string * uNome, string * cursos);
 bool verificagrupo(identidade * filadeespera, int custo);
 void removeElemento(identidade * filadeespera, int custo);
+int comprimento(identidade * filadeespera);
+identidade * removerPos(identidade * filadeespera, int pos, int custo);
+int retornapos(identidade * filadeespera, int custo);
+identidade * removerInicio(identidade * filadeespera);
+void removerFim(identidade * filadeespera);

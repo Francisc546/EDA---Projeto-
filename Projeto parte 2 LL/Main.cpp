@@ -58,7 +58,7 @@ int main() {
 					if (e == 0) {
 					}
 					else if (e == 1) {
-						removeElemento(filadeespera, novaref->custo);
+						removerPos(filadeespera, retornapos(filadeespera,novaref->custo),novaref->custo);
 						escreveFiladeEspera(filadeespera);
 						imprimeCantina(mesas);
 					}
@@ -79,10 +79,47 @@ int main() {
 					ciclos--;
 					break;
 					/*case 'e':
-						break;
+						break;*/
 					case 'g':
+						{
+						fstream file;
+						file.open("refeicao---------------------.txt", ios::out);
+						file << novaref->entrada << endl << novaref->principal << endl << novaref->custo << endl;
+						file.close();
+						/*file.open("infoMesa---------------------.txt", ios::out);
+						while (mesas != NULL) {
+							file << mesas->numMesa << endl << mesas->tamanho << endl << mesas->vagas;
+							while(mesas->pessoas != NULL) {
+								file << mesas->pessoas << endl;
+								mesas->pessoas = mesas->pessoas->seguinte;
+							}
+							mesas = mesas->seguinte;
+						}
+						file.close();*/
+						file.open("infoFilaEspera---------------.txt", ios::out);
+						while (filadeespera != NULL) {
+							if (filadeespera->tipo) {
+								file << filadeespera->tipo << endl << filadeespera->primeironome << endl
+									<< filadeespera->ultimonome << endl
+									<< filadeespera->numeroid << endl << filadeespera->curso << endl
+									<< filadeespera->plafond << endl << filadeespera->numerogrupo << endl
+									<< filadeespera->duracao << endl << filadeespera->n_elementos << endl;
+								filadeespera = filadeespera->seguinte;
+							}
+							else {
+								file << filadeespera->tipo << endl << filadeespera->primeironome << endl
+									<< filadeespera->ultimonome << endl << filadeespera->numeroid << endl
+									<< filadeespera->plafond << endl << filadeespera->numerogrupo << endl
+									<< filadeespera->duracao << endl << filadeespera->n_elementos << endl;
+								filadeespera = filadeespera->seguinte;
+							}
+						}
+						file.close();
+						cout << "******** Tudo Gravado" << endl;
 						break;
-					case 'c':
+						}
+						
+					/*case 'c':
 						break;
 					case 'o':
 						break;*/
