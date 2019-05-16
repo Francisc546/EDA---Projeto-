@@ -15,6 +15,7 @@ int main() {
 	int tamanhopNome = contaLinhas("primeiro_nome.txt");
 	int tamanhouNome = contaLinhas("ultimo_nome.txt");
 	int tamanhocursos = contaLinhas("cursos.txt");
+	int aleatorio = rand() % 2 + 2;
 	string * pNome = new string[tamanhopNome];
 	string * uNome = new string[tamanhouNome];
 	string * cursos = new string[tamanhocursos];
@@ -23,7 +24,7 @@ int main() {
 	Insere(cursos, "cursos.txt", tamanhocursos); // insere os cursos no array cursos
 
 	identidade * filadeespera = NULL;
-	filadeespera = criagrupo(filadeespera, pNome, uNome, cursos);
+	filadeespera = criagrupo(filadeespera, pNome, uNome, cursos,aleatorio);
 
 
 	Mesa*mesas = NULL;
@@ -46,14 +47,14 @@ int main() {
 
 		while (ciclos != 0) {
 
-			cout << "(s) seguinte (e) Emergência (g) Gravar (c) Carregar dados (o) Opçoes ";
+			cout << "(s) seguinte (e) EmergÃªncia (g) Gravar (c) Carregar dados (o) OpÃ§oes ";
 			char opcao;
 			cin >> opcao;
 			switch (opcao) {
 			case 's':
 				if (!verificagrupo(filadeespera, novaref->custo)) {
 					int e;
-					cout << " ***************Atenção ****************** \n Existe um membro do grupo sem plafond \n 0 - remover o grupo \n 1 - remover a pessoa \n Comando: ";
+					cout << " ***************AtenÃ§Ã£o ****************** \n Existe um membro do grupo sem plafond \n 0 - remover o grupo \n 1 - remover a pessoa \n Comando: ";
 					cin >> e;
 					if (e == 0) {
 					}
@@ -71,7 +72,7 @@ int main() {
 
 					}
 					else {
-						filadeespera = criagrupo(filadeespera, pNome, uNome, cursos);
+						filadeespera = criagrupo(filadeespera, pNome, uNome, cursos,1);
 					}
 
 					escreveFiladeEspera(filadeespera);
