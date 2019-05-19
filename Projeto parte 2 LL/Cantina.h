@@ -12,7 +12,7 @@ struct refeicao {
 	float custo;
 };
 struct identidade {
-	float entidade;
+	string entidade;
 	string primeironome, ultimonome;
 	int numeroid, numerogrupo, duracao;
 	string curso;
@@ -20,7 +20,6 @@ struct identidade {
 	bool tipo;
 	int n_elementos;
 	identidade * seguinte;
-
 };
 
 
@@ -32,7 +31,6 @@ struct Mesa {
 	Mesa* seguinte;
 
 };
-identidade * adiciona_especial(identidade*filadeespera, identidade*novo);
 identidade * criagrupo(identidade*filadeespera, string * pNome, string * uNome, string * cursos,int aleatorio);
 void escreveFiladeEspera(identidade * filadeespera);
 identidade * adiciona_filadeespera(identidade*filadeespera, identidade*novo);
@@ -43,9 +41,3 @@ void InsereRefeicao(refeicao * novaref);
 void ImprimeRefeicao(refeicao * novaref);
 identidade * criaespecial(identidade*filadeespera, string * pNome, string * uNome, string * cursos);
 bool verificagrupo(identidade * filadeespera, int custo);
-void removeElemento(identidade * filadeespera, int custo);
-int comprimento(identidade * filadeespera);
-identidade * removerPos(identidade * filadeespera, int pos, int custo);
-int retornapos(identidade * filadeespera, int custo);
-identidade * removerInicio(identidade * filadeespera);
-void removerFim(identidade * filadeespera);

@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 #include "Cantina.h"
-#include "Ficheiros.h"f
+#include "Ficheiros.h"
 
 using namespace std;
 
@@ -13,7 +13,7 @@ void InsereRefeicao(refeicao * novaref) {
 	cout << "Introduza a entrada: " << endl;
 	cin.sync();
 	cin.seekg(0);
-	getline(cin, novaref->entrada); // uso do getline para obter a linha toda e nÃ£o apenas a primeira palavra
+	getline(cin, novaref->entrada); // uso do getline para obter a linha toda e não apenas a primeira palavra
 	cout << "Introduza o prato principal: " << endl;
 	getline(cin, novaref->principal);
 	cout << "Introduza o custo da refeicao: " << endl;
@@ -46,7 +46,7 @@ identidade * adiciona_filadeespera(identidade*filadeespera, identidade*novo) {
 	}
 	return filadeespera;
 }
- 
+
 Mesa * adiciona_mesas(Mesa*mesas, Mesa*novo) {
 	if (mesas == NULL) {
 		mesas = novo;
@@ -81,7 +81,7 @@ Mesa * criamesas(Mesa*mesas, int tamanhodacantina) {
 			novamesa->tamanho = lugares;
 			novamesa->vagas = novamesa->tamanho;
 			novamesa->numMesa = n_mesa;
-			novamesa->pessoas = new identidade[novamesa->tamanho];
+			novamesa->pessoas = NULL;
 			i = i + lugares;
 			n_mesa++;
 			mesas = adiciona_mesas(mesas, novamesa);
@@ -92,12 +92,12 @@ Mesa * criamesas(Mesa*mesas, int tamanhodacantina) {
 			novamesa->tamanho = lugares;
 			novamesa->vagas = novamesa->tamanho;
 			novamesa->numMesa = n_mesa;
-			novamesa->pessoas = new identidade[novamesa->tamanho];
+			novamesa->pessoas = NULL;
 			i = i + lugares;
 			n_mesa++;
 			mesas = adiciona_mesas(mesas, novamesa);
 		}
-		
+
 	}
 	return mesas;
 
@@ -107,13 +107,13 @@ void imprimeCantina(Mesa * mesas) {
 	Mesa*aux = mesas;
 	while (aux != NULL) {
 		cout << "MESA N: " << aux->numMesa << "   TAMANHO:  " << aux->tamanho << endl;
-		while(aux->pessoas!=NULL){
+		while (aux->pessoas != NULL) {
 			cout << aux->pessoas->entidade << aux->pessoas->primeironome << " , grupo " << aux->pessoas->numerogrupo << " | " << aux->pessoas->numeroid << " | " << aux->pessoas->curso << " | (ciclos restantes: " << aux->pessoas->duracao << ") Plafond : " << aux->pessoas->plafond << endl;
 			aux->pessoas = aux->pessoas->seguinte;
-			
+
 		}
 		aux = aux->seguinte;
-		
+
 	}
 
 }
@@ -121,7 +121,7 @@ void imprimeCantina(Mesa * mesas) {
 
 
 
-bool decide(bool tipo) { // funcao que decide qual vai ser o tipo do grupo criado, se for gerado um numero abaixo de 75 Ã© aluno , caso contrario Ã© staff
+bool decide(bool tipo) { // funcao que decide qual vai ser o tipo do grupo criado, se for gerado um numero abaixo de 75 é aluno , caso contrario é staff
 	int spawn = rand() % 100 + 1;
 	if (spawn <= 75) {
 		return true;
@@ -141,7 +141,7 @@ identidade * criagrupo(identidade*filadeespera, string * pNome, string * uNome, 
 		int elementos = rand() % 10 + 1;
 		int numerogrupo = rand() % 400 + 100;
 		int duracao_ref = rand() % 4 + 2;
-		int k = rand() % 18; // seleciona um curso ( o ficheiro possui 19 cursos , mas como o array comeÃ§a na posiÃ§Ã£o 0 logo tem de ser ate 18)
+		int k = rand() % 18; // seleciona um curso ( o ficheiro possui 19 cursos , mas como o array começa na posição 0 logo tem de ser ate 18)
 		for (int r = 0; r < elementos; r++) {
 			identidade * grupo = new identidade;
 			int i = rand() % 43; // seleciona um primeiro nome do array
@@ -174,18 +174,18 @@ identidade * criagrupo(identidade*filadeespera, string * pNome, string * uNome, 
 			filadeespera = adiciona_filadeespera(filadeespera, grupo);
 		}
 	}
-	
+
 
 
 	return filadeespera;
 }
 
 
-identidade * criaespecial (identidade*filadeespera, string * pNome, string * uNome, string * cursos){
+identidade * criaespecial(identidade*filadeespera, string * pNome, string * uNome, string * cursos) {
 	identidade * especial = new identidade;
 	int numerogrupo = rand() % 400 + 100;
 	int duracao_ref = rand() % 4 + 2;
-	int k = rand() % 18; // seleciona um curso ( o ficheiro possui 19 cursos , mas como o array comeÃ§a na posiÃ§Ã£o 0 logo tem de ser ate 18)
+	int k = rand() % 18; // seleciona um curso ( o ficheiro possui 19 cursos , mas como o array começa na posição 0 logo tem de ser ate 18)
 	int i = rand() % 43; // seleciona um primeiro nome do array
 	int j = rand() % 96; // seleciona um ultimo nome do array
 	especial->primeironome = pNome[i];
@@ -213,121 +213,29 @@ void escreveFiladeEspera(identidade * filadeespera) {
 
 	while (aux != NULL) {
 		cout << " -> " << aux->entidade << ", " << aux->primeironome << " " << aux->ultimonome << ", " << aux->curso << ", " << aux->numeroid << ", Grupo: " << aux->numerogrupo << ", " << aux->plafond << " euros, (Duracao: " << aux->duracao << ")" << endl;
-		aux = aux->seguinte;	
+		aux = aux->seguinte;
 	}
 	cout << endl;
 }
 
-bool verificagrupo(identidade * filadeespera, int custo) { // funÃ§ao que verifica o plafond um a um dos elementos do grupo
+bool verificagrupo(identidade * filadeespera, int custo) { // funçao que verifica o plafond um a um dos elementos do grupo
 
 
 	int num_grupo = filadeespera->numerogrupo;
 	identidade * aux = filadeespera;
-	while(aux->numerogrupo == num_grupo){
+	while (aux->numerogrupo == num_grupo) {
 		if (aux->plafond < custo) {
 			cout << aux->plafond << endl;
 			return false;
 			break;
 		}
-		
+
 		aux = aux->seguinte;
-		
+
 	}
 	return true;
 
 }
 
-int retornapos(identidade * filadeespera, int custo) {
-	int count = 0;
-	int num_grupo = filadeespera->numerogrupo;
-	identidade * aux = filadeespera;
-	while (aux->numerogrupo == num_grupo) {
-		if (aux->plafond < custo) {
-			return count;
-			break;
-		}
-		count++;
-		aux = aux->seguinte;
-	}
-}
+
 	
-
-identidade * removerInicio(identidade * filadeespera) {
-	identidade * aux = filadeespera;
-	filadeespera = filadeespera->seguinte;
-	delete aux;
-	return filadeespera;
-}
-
-void removerFim(identidade * filadeespera) {
-	identidade * iterator = filadeespera;
-
-	while (iterator->seguinte->seguinte != NULL) {
-		iterator = iterator->seguinte;
-	}
-
-	identidade * aux = iterator->seguinte;
-	iterator->seguinte = NULL;
-	delete aux;
-}
-
-/*void removeElemento(identidade * filadeespera, int custo) {
-	int num_grupo = filadeespera->numerogrupo;
-	identidade * iterator = filadeespera;
-	while (iterator->numerogrupo == num_grupo) {
-		if (iterator->plafond < custo) {
-			identidade * aux = iterator->seguinte;
-			iterator->seguinte = iterator->seguinte->seguinte;
-			delete aux;
-			break;
-		}
-		iterator = iterator->seguinte;
-	}
-
-}*/
-
-int comprimento(identidade * filadeespera) {
-	int contador = 0;
-	identidade * aux = filadeespera;
-	int numerogrupo = filadeespera->numerogrupo;
-	while (aux->numerogrupo == numerogrupo)//enquanto nÃ£o chegar ao fim da LL
-	{
-		contador++;
-		aux = aux->seguinte; //vai para o nodo seguinte
-	}
-	return contador;
-}
-
-
-identidade * removerPos(identidade * filadeespera, int pos, int custo) {
-	int tamanho = comprimento(filadeespera);
-	int numgrupo = filadeespera->numerogrupo;
-	identidade * aux = filadeespera;
-	while (aux->numerogrupo == numgrupo) {
-		if (aux->plafond < custo) {
-			if (pos == 0) {
-				return removerInicio(filadeespera);
-			}
-			else if (pos == tamanho) {
-				removerFim(filadeespera);
-				return filadeespera;
-			}
-
-			else {
-				identidade * iterator = filadeespera;
-				int pos_count = 1;
-				while (iterator->seguinte != NULL && pos != pos_count) {
-					iterator = iterator->seguinte;
-					pos_count++;
-				}
-				identidade * aux = iterator->seguinte;
-				iterator->seguinte = iterator->seguinte->seguinte;
-				delete aux;
-				return filadeespera;
-			}
-			break;
-		}
-		aux = aux->seguinte;
-	}
-
-}
