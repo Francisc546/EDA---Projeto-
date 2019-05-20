@@ -78,7 +78,7 @@ identidade * removerPos(identidade * filadeespera, int pos) {
 }
 
 
-void removeGrupo(identidade * filadeespera) {
+identidade * removeGrupo(identidade * filadeespera) {
 	int num_grupo = filadeespera->numerogrupo;
 	identidade * aux = filadeespera;
 	while (aux->seguinte->numerogrupo == num_grupo) {
@@ -89,6 +89,6 @@ void removeGrupo(identidade * filadeespera) {
 	aux->seguinte = aux->seguinte->seguinte;
 	filadeespera = aux->seguinte;
 	delete aux;
-	
+	return filadeespera;
 }
 

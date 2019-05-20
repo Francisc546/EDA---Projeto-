@@ -10,4 +10,4 @@ identidade * removerPos(identidade * filadeespera, int pos);
 int retornapos(identidade * filadeespera, int custo);
 identidade * removerInicio(identidade * filadeespera);
 void removerFim(identidade * filadeespera);
-void removeGrupo(identidade * filadeespera);
+identidade *removeGrupo(identidade * filadeespera);

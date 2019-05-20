@@ -58,12 +58,13 @@ int main() {
 					cout << " ***************Atenção ****************** \n Existe um membro do grupo sem plafond \n 0 - remover o grupo \n 1 - remover a pessoa \n Comando: ";
 					cin >> e;
 					if (e == 0) {
-						removeGrupo(filadeespera);
+						filadeespera = removeGrupo(filadeespera);
 						escreveFiladeEspera(filadeespera);
 						imprimeCantina(mesas);
 					}
 					else if (e == 1) {
-						removerPos(filadeespera, retornapos(filadeespera,novaref->custo));
+
+						filadeespera = removerPos(filadeespera, retornapos(filadeespera, novaref->custo)); // atenção de momento só está a remover a primeira posição 
 						escreveFiladeEspera(filadeespera);
 						imprimeCantina(mesas);
 					}
