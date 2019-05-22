@@ -108,9 +108,10 @@ void imprimeCantina(Mesa * mesas) {
 	Mesa*aux = mesas;
 	while (aux != NULL) {
 		cout << "MESA N: " << aux->numMesa << "   TAMANHO:  " << aux->tamanho << endl;
-		while (aux->pessoas != NULL) {
-			cout << aux->pessoas->entidade << aux->pessoas->primeironome << " , grupo " << aux->pessoas->numerogrupo << " | " << aux->pessoas->numeroid << " | " << aux->pessoas->curso << " | (ciclos restantes: " << aux->pessoas->duracao << ") Plafond : " << aux->pessoas->plafond << endl;
-			aux->pessoas = aux->pessoas->seguinte;
+		identidade * aux2 = aux->pessoas;
+		while (aux2 != NULL) {
+			cout << aux2->entidade << aux2->primeironome << " , grupo " << aux2->numerogrupo << " | " << aux2->numeroid << " | " << aux2->curso << " | (ciclos restantes: " << aux2->duracao << ") Plafond : " << aux2->plafond << endl;
+			aux2 = aux2->seguinte;
 
 		}
 		aux = aux->seguinte;
@@ -239,7 +240,7 @@ bool verificagrupo(identidade * filadeespera, int custo) { // funçao que verific
 
 }
 
-identidade * adiciona_cantina(Mesa*mesas, identidade* pessoa) {
+identidade * adiciona_cantina2(Mesa*mesas, identidade* pessoa) {
 	if (mesas->pessoas == NULL) {
 		mesas->pessoas = pessoa;
 		mesas->pessoas->seguinte = NULL;
@@ -256,7 +257,29 @@ identidade * adiciona_cantina(Mesa*mesas, identidade* pessoa) {
 	return mesas->pessoas;
 
 }
+identidade * adiciona_cantina(Mesa*mesas, identidade* pessoas) {
+	identidade * ocupantes = pessoas;
+	identidade * aux = pessoas;
+	while (aux->seguinte != NULL && mesas->vagas >1) {
+		aux = aux->seguinte;
+		mesas->vagas--;
+		//cout << aux->primeironome << endl;
+	}
+	identidade * temp = aux->seguinte;
+	 aux->seguinte = mesas->pessoas;
+	mesas->pessoas = ocupantes;
+	/*
+	identidade * aux3 = adiciona_cantina(mesas, filanova);;
+	cout << "Imprimindo ocupantes" << endl;
+	while (aux3->seguinte != NULL) {
+		cout << aux3->primeironome << " " << aux3->ultimonome << endl;
+		aux3 = aux3->seguinte;
 
+	}*/
+
+
+	return temp;
+}
 
 /*void insereMesas(identidade*filadeespera, Mesa*mesas) {
 	identidade * aux = filadeespera;
@@ -282,25 +305,45 @@ identidade * adiciona_cantina(Mesa*mesas, identidade* pessoa) {
 	}
 
 }*/
+identidade * insereMesas(identidade * filadeespera, Mesa * mesas) {
+	identidade * aux = filadeespera;
+	int num_grupo = aux->numerogrupo;
+	identidade * filanova = NULL;
+	while (aux->seguinte->numerogrupo == num_grupo) {
+		aux = aux->seguinte;
+	}
+	filanova = filadeespera;
+	filadeespera = aux->seguinte;
+	aux->seguinte = NULL;
+	Mesa * aux2 = mesas;
+		while (aux2->seguinte != NULL && filanova!=NULL) {
+			filanova = adiciona_cantina(aux2, filanova);
+			aux2 = aux2->seguinte;
+		}
 
-void insereMesas(identidade * filadeeespera, Mesa * mesas) {
+	return filadeespera;
+}
+
+
+
+void insereMesas2(identidade * filadeeespera, Mesa * mesas) {
 	Mesa * aux2 = mesas;
 	while (aux2 != NULL) {
-		identidade * grupo = filadeeespera;
+		identidade * pessoa = filadeeespera;
 		int num_grupo = filadeeespera->numerogrupo;
-		while (grupo->seguinte->numerogrupo == num_grupo) {
+		while (pessoa->seguinte->numerogrupo == num_grupo) {
 			int count_elementos = 0;
 			while (count_elementos < aux2->tamanho) {
-				aux2->pessoas = adiciona_cantina(mesas, grupo);
+				aux2->pessoas = adiciona_cantina(mesas, pessoa);
 				count_elementos++;
 				aux2->vagas--;
-				grupo = grupo->seguinte;
+				pessoa = pessoa->seguinte;
 				
 			}
 			aux2 = aux2->seguinte;
 
 		}
-		identidade * aux = grupo->seguinte;
+		identidade * aux = pessoa->seguinte;
 		aux = aux->seguinte;
 		filadeeespera = aux;
 	}

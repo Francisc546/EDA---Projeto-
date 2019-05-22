@@ -69,7 +69,7 @@ int main() {
 					}
 				}
 				else {
-					insereMesas(filadeespera, mesas);
+					filadeespera = insereMesas(filadeespera, mesas);
 
 					int special = rand() % 100;
 					if (special >= 95) {
