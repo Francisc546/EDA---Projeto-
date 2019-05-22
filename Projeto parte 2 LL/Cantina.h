@@ -41,3 +41,5 @@ void InsereRefeicao(refeicao * novaref);
 void ImprimeRefeicao(refeicao * novaref);
 identidade * criaespecial(identidade*filadeespera, string * pNome, string * uNome, string * cursos);
 bool verificagrupo(identidade * filadeespera, int custo);
+identidade* adiciona_cantina(Mesa*mesas, identidade* pessoa);
+void insereMesas(identidade*filadeespera, Mesa*mesas);

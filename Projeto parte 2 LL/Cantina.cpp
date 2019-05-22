@@ -3,6 +3,7 @@
 #include <string>
 #include "Cantina.h"
 #include "Ficheiros.h"
+#include "Fila.h"
 
 using namespace std;
 
@@ -150,6 +151,7 @@ identidade * criagrupo(identidade*filadeespera, string * pNome, string * uNome, 
 			grupo->ultimonome = uNome[j];
 			grupo->duracao = duracao_ref;
 			grupo->tipo = tipo;
+			grupo->n_elementos = elementos;
 			if (tipo) {
 				int id = rand() % 2087318 + 2000000;
 				int dinheiro = rand() % 100 + 1;
@@ -237,5 +239,69 @@ bool verificagrupo(identidade * filadeespera, int custo) { // funçao que verific
 
 }
 
+identidade * adiciona_cantina(Mesa*mesas, identidade* pessoa) {
+	if (mesas->pessoas == NULL) {
+		mesas->pessoas = pessoa;
+		mesas->pessoas->seguinte = NULL;
+	}
+	else {
+		identidade* aux = mesas->pessoas;
+		while (aux != NULL) {
+			aux = aux->seguinte;
 
-	
+		}
+		aux->seguinte = pessoa;
+		pessoa->seguinte = NULL;
+	}
+	return mesas->pessoas;
+
+}
+
+
+/*void insereMesas(identidade*filadeespera, Mesa*mesas) {
+	identidade * aux = filadeespera;
+	Mesa* auxi = mesas;
+	int count_elementos = 0;
+	int num_elementos = filadeespera->n_elementos;
+	while (auxi != NULL) {
+
+		for (int z = 0; z < auxi->tamanho && count_elementos < num_elementos && auxi->vagas != 0; z++) {
+
+			if (auxi->vagas == auxi->tamanho || auxi->pessoas->curso == aux->curso || !aux->tipo&&auxi->vagas != 0) {
+
+				auxi->pessoas = adiciona_cantina(auxi, aux);
+				auxi->vagas--;
+				count_elementos++;
+				
+
+			}
+			aux = aux->seguinte;
+		}
+		
+		auxi = auxi->seguinte;
+	}
+
+}*/
+
+void insereMesas(identidade * filadeeespera, Mesa * mesas) {
+	Mesa * aux2 = mesas;
+	while (aux2 != NULL) {
+		identidade * grupo = filadeeespera;
+		int num_grupo = filadeeespera->numerogrupo;
+		while (grupo->seguinte->numerogrupo == num_grupo) {
+			int count_elementos = 0;
+			while (count_elementos < aux2->tamanho) {
+				aux2->pessoas = adiciona_cantina(mesas, grupo);
+				count_elementos++;
+				aux2->vagas--;
+				grupo = grupo->seguinte;
+				
+			}
+			aux2 = aux2->seguinte;
+
+		}
+		identidade * aux = grupo->seguinte;
+		aux = aux->seguinte;
+		filadeeespera = aux;
+	}
+}

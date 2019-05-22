@@ -45,7 +45,7 @@ int main() {
 		ImprimeRefeicao(novaref);
 		escreveFiladeEspera(filadeespera);
 		imprimeCantina(mesas);
-
+		
 		while (ciclos != 0) {
 
 			cout << "(s) seguinte (e) Emergência (g) Gravar (c) Carregar dados (o) Opçoes ";
@@ -63,13 +63,14 @@ int main() {
 						imprimeCantina(mesas);
 					}
 					else if (e == 1) {
-
-						filadeespera = removerPos(filadeespera, retornapos(filadeespera, novaref->custo)); // atenção de momento só está a remover a primeira posição 
+						filadeespera = removerPos(filadeespera, retornapos(filadeespera,novaref->custo));
 						escreveFiladeEspera(filadeespera);
 						imprimeCantina(mesas);
 					}
 				}
 				else {
+					insereMesas(filadeespera, mesas);
+
 					int special = rand() % 100;
 					if (special >= 95) {
 						filadeespera = criaespecial(filadeespera, pNome, uNome, cursos);
@@ -93,16 +94,6 @@ int main() {
 				file.open("refeicao---------------------.txt", ios::out);
 				file << novaref->entrada << endl << novaref->principal << endl << novaref->custo << endl;
 				file.close();
-				/*file.open("infoMesa---------------------.txt", ios::out);
-				while (mesas != NULL) {
-					file << mesas->numMesa << endl << mesas->tamanho << endl << mesas->vagas;
-					while(mesas->pessoas != NULL) {
-						file << mesas->pessoas << endl;
-						mesas->pessoas = mesas->pessoas->seguinte;
-					}
-					mesas = mesas->seguinte;
-				}
-				file.close();*/
 				file.open("infoFilaEspera---------------.txt", ios::out);
 				while (filadeespera != NULL) {
 					if (filadeespera->tipo) {
