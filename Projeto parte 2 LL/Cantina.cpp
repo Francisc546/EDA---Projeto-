@@ -239,72 +239,21 @@ bool verificagrupo(identidade * filadeespera, int custo) { // funçao que verific
 	return true;
 
 }
-
-identidade * adiciona_cantina2(Mesa*mesas, identidade* pessoa) {
-	if (mesas->pessoas == NULL) {
-		mesas->pessoas = pessoa;
-		mesas->pessoas->seguinte = NULL;
-	}
-	else {
-		identidade* aux = mesas->pessoas;
-		while (aux != NULL) {
-			aux = aux->seguinte;
-
-		}
-		aux->seguinte = pessoa;
-		pessoa->seguinte = NULL;
-	}
-	return mesas->pessoas;
-
-}
 identidade * adiciona_cantina(Mesa*mesas, identidade* pessoas) {
 	identidade * ocupantes = pessoas;
 	identidade * aux = pessoas;
-	while (aux->seguinte != NULL && mesas->vagas >1) {
+	while (aux->seguinte != NULL && mesas->vagas > 1) {
 		aux = aux->seguinte;
 		mesas->vagas--;
-		//cout << aux->primeironome << endl;
 	}
+	mesas->vagas--;
 	identidade * temp = aux->seguinte;
-	 aux->seguinte = mesas->pessoas;
+	aux->seguinte = mesas->pessoas;
 	mesas->pessoas = ocupantes;
-	/*
-	identidade * aux3 = adiciona_cantina(mesas, filanova);;
-	cout << "Imprimindo ocupantes" << endl;
-	while (aux3->seguinte != NULL) {
-		cout << aux3->primeironome << " " << aux3->ultimonome << endl;
-		aux3 = aux3->seguinte;
-
-	}*/
-
-
 	return temp;
 }
 
-/*void insereMesas(identidade*filadeespera, Mesa*mesas) {
-	identidade * aux = filadeespera;
-	Mesa* auxi = mesas;
-	int count_elementos = 0;
-	int num_elementos = filadeespera->n_elementos;
-	while (auxi != NULL) {
 
-		for (int z = 0; z < auxi->tamanho && count_elementos < num_elementos && auxi->vagas != 0; z++) {
-
-			if (auxi->vagas == auxi->tamanho || auxi->pessoas->curso == aux->curso || !aux->tipo&&auxi->vagas != 0) {
-
-				auxi->pessoas = adiciona_cantina(auxi, aux);
-				auxi->vagas--;
-				count_elementos++;
-				
-
-			}
-			aux = aux->seguinte;
-		}
-		
-		auxi = auxi->seguinte;
-	}
-
-}*/
 identidade * insereMesas(identidade * filadeespera, Mesa * mesas) {
 	identidade * aux = filadeespera;
 	int num_grupo = aux->numerogrupo;
@@ -316,35 +265,23 @@ identidade * insereMesas(identidade * filadeespera, Mesa * mesas) {
 	filadeespera = aux->seguinte;
 	aux->seguinte = NULL;
 	Mesa * aux2 = mesas;
-		while (aux2->seguinte != NULL && filanova!=NULL) {
+	while (aux2->seguinte != NULL && filanova != NULL) {
+		
+		if (aux2->vagas==aux2->tamanho||aux2->pessoas==NULL) {//se a mesa não tem ngm
 			filanova = adiciona_cantina(aux2, filanova);
-			aux2 = aux2->seguinte;
+			
 		}
+		else {//se a mesa tem pessoas
+			if ((aux2->pessoas->curso==filanova->curso||filanova->tipo==0||aux2->pessoas->tipo==0)&&aux2->vagas!=0) {//condições do enunciado
+				filanova = adiciona_cantina(aux2, filanova);				
+			}
+		}
+		aux2 = aux2->seguinte;
+		
+			
+		
+		
+	}
 
 	return filadeespera;
-}
-
-
-
-void insereMesas2(identidade * filadeeespera, Mesa * mesas) {
-	Mesa * aux2 = mesas;
-	while (aux2 != NULL) {
-		identidade * pessoa = filadeeespera;
-		int num_grupo = filadeeespera->numerogrupo;
-		while (pessoa->seguinte->numerogrupo == num_grupo) {
-			int count_elementos = 0;
-			while (count_elementos < aux2->tamanho) {
-				aux2->pessoas = adiciona_cantina(mesas, pessoa);
-				count_elementos++;
-				aux2->vagas--;
-				pessoa = pessoa->seguinte;
-				
-			}
-			aux2 = aux2->seguinte;
-
-		}
-		identidade * aux = pessoa->seguinte;
-		aux = aux->seguinte;
-		filadeeespera = aux;
-	}
 }
