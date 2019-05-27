@@ -71,3 +71,4 @@ Mesa * removegrupo(Mesa* mesas, int numerogrupo) {
 	}
 	return mesas;
 }
+

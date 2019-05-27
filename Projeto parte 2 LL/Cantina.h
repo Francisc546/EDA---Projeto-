@@ -44,3 +44,8 @@ bool verificagrupo(identidade * filadeespera, int custo);
 identidade* adiciona_cantina(Mesa*mesas, identidade* pessoa);
 identidade * insereMesas(identidade*filadeespera, Mesa*mesas);
 Mesa * reduzduracao(Mesa *mesas);
+identidade * alteraduracaofila(identidade * filadeespera, int numgrupo, int duracao);
+Mesa * alteraduracaomesas(Mesa * mesas, int numgrupo, int duracao);
+identidade * alterarnome(identidade * filadeespera, int id, string pnome, string unome);
+Mesa * alterarnome2(Mesa* mesas, int id, string pnome, string unome);
+void imprime(identidade * guardado);

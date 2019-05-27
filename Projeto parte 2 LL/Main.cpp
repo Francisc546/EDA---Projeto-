@@ -33,8 +33,8 @@ int main() {
 	int tamanhodacantina = rand() % 20 + 30;
 	mesas = criamesas(mesas, tamanhodacantina);
 
-
-
+	
+	identidade * pessoalguardado = NULL;
 
 
 	do {
@@ -59,7 +59,7 @@ int main() {
 					cout << " ***************Atenção ****************** \n Existe um membro do grupo sem plafond \n 0 - remover o grupo \n 1 - remover a pessoa \n Comando: ";
 					cin >> e;
 					if (e == 0) {
-						filadeespera = removeGrupo(filadeespera);
+						filadeespera = removeGrupo(filadeespera,pessoalguardado);
 						escreveFiladeEspera(filadeespera);
 						imprimeCantina(mesas);
 					}
@@ -148,14 +148,17 @@ int main() {
 				break;
 			case 'o':
 				cout << "-----------------Opçoes------------------" << endl;
-				cout <<" 1 - Alterar plafond de um individuo" << endl;
+				cout << " 1 - Alterar plafond de um individuo" << endl;
 				cout << " 2 - Alterar o nome de um individuo" << endl;
+				cout << " 3 - Alterar a duracao de um grupo" << endl;
+				cout << " 4 - Imprimir pessoal guardado " << endl;
 				cout << "Comando: ";
 				int p;
 				cin >> p;
 				int id;
 				int plafondalterado;
-				string nome;
+				string pnome;
+				string unome;
 				if (p == 1) {
 					cout << "Indique o id do aluno/staff que quer alterar o plafond: ";
 					cin >> id;
@@ -173,23 +176,63 @@ int main() {
 					imprimeCantina(mesas);
 				}
 				else if (p == 2) {
+					int decisao = 0;
+					cout << "Pretende alterar o nome de alguem que esta na fila (1) ou nas mesas (2): ";
+					cin >> decisao;
 					cout << "Indique o id do aluno/staff que quer alterar o nome: ";
 					cin >> id;
-					cout << "Indique o novo nome: ";
-					cin >> nome;
-					identidade * aux = filadeespera;
-					while (aux->seguinte != NULL) {
-						if (aux->numeroid == id) {
-							aux->primeironome = nome;
-							break;
-						}
-						aux = aux->seguinte;
+					cout << "Indique o primeiro e ultimo nomes separados por espaço: ";
+					cin >> pnome >> unome;
+					if (decisao == 1) {
+						alterarnome(filadeespera, id, pnome, unome);
+						escreveFiladeEspera(filadeespera);
+						imprimeCantina(mesas);
 					}
-					escreveFiladeEspera(filadeespera);
-					imprimeCantina(mesas);
+					else if (decisao == 2) {
+						alterarnome2(mesas, id, pnome, unome);
+						escreveFiladeEspera(filadeespera);
+						imprimeCantina(mesas);
+
+					}
 
 
 
+				}
+				else if (p == 3) {
+					int commando2 = 0;
+					cout << "Pretende alterar a duracao de um grupo que esteja nas (1) mesas ou na fila de espera (2) : ";
+					cin >> commando2;
+
+					int numgrupo = 0;
+					cout << "Indique o numero do grupo que pretende alterar a duracao: ";
+					cin >> numgrupo;
+
+					int novadur = 0;
+					cout << "Indique a nova duracao: ";
+					cin >> novadur;
+					if (novadur > 0 && novadur <= 5) {
+
+						if (commando2 == 2) {
+							alteraduracaofila(filadeespera, numgrupo, novadur);
+							escreveFiladeEspera(filadeespera);
+							imprimeCantina(mesas);
+
+						}
+						else if (commando2 == 1) {
+							alteraduracaomesas(mesas, numgrupo, novadur);
+							escreveFiladeEspera(filadeespera);
+							imprimeCantina(mesas);
+						}
+
+					}
+					else {
+						cout << "Duracao invalida" << endl;
+					}
+
+
+				}
+				else if (p == 4) {
+					imprime(pessoalguardado);
 				}
 
 				break;

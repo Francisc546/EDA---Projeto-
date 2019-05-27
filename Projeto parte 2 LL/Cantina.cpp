@@ -299,5 +299,75 @@ Mesa * reduzduracao(Mesa *mesas) {
 	return mesas;
 }
 
+identidade * alteraduracaofila(identidade * filadeespera, int numgrupo, int duracao) {
+	identidade * aux = filadeespera;
+	while (aux != NULL) {
+		if (aux->numerogrupo == numgrupo) {
+			while (aux->numerogrupo == numgrupo) {
 
+				aux->duracao = duracao;
+				aux = aux->seguinte;
+
+
+			}
+
+		}
+
+		aux = aux->seguinte;
+	}
+	return filadeespera;
+}
 	
+Mesa * alteraduracaomesas(Mesa * mesas, int numgrupo, int duracao) {
+	Mesa * aux = mesas;
+	while (aux != NULL) {
+		identidade * iterator = aux->pessoas;
+		while (iterator != NULL) {
+			if (iterator->numerogrupo == numgrupo) {
+				iterator->duracao = duracao;
+			}
+			iterator = iterator->seguinte;
+		}
+		aux = aux->seguinte;
+	}
+	return mesas;
+}
+
+identidade * alterarnome(identidade * filadeespera,int id, string pnome, string unome) {
+	identidade * aux = filadeespera;
+	while (aux != NULL) {
+		if (aux->numeroid == id) {
+			aux->primeironome = pnome;
+			aux->ultimonome = unome;
+			break;
+		}
+		aux = aux->seguinte;
+
+	}
+	return filadeespera;
+}
+
+Mesa * alterarnome2(Mesa* mesas, int id, string pnome, string unome) {
+	Mesa * aux = mesas;
+	while (aux != NULL) {
+		identidade * iterator = aux->pessoas;
+		while (iterator != NULL) {
+			if (iterator->numeroid == id) {
+				iterator->primeironome = pnome;
+				iterator->ultimonome = unome;
+				break;
+			}
+			iterator = iterator->seguinte;
+		}
+		aux = aux->seguinte;
+	}
+	return mesas;
+}
+
+void imprime(identidade * guardado) {
+	identidade * aux = guardado;
+	while (aux != NULL) {
+		cout << aux->primeironome << endl;
+		aux = aux->seguinte;
+	}
+}
