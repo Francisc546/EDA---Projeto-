@@ -266,22 +266,38 @@ identidade * insereMesas(identidade * filadeespera, Mesa * mesas) {
 	aux->seguinte = NULL;
 	Mesa * aux2 = mesas;
 	while (aux2->seguinte != NULL && filanova != NULL) {
-		
-		if (aux2->vagas==aux2->tamanho||aux2->pessoas==NULL) {//se a mesa não tem ngm
+
+		if (aux2->vagas == aux2->tamanho || aux2->pessoas == NULL) {//se a mesa não tem ngm
 			filanova = adiciona_cantina(aux2, filanova);
-			
+
 		}
 		else {//se a mesa tem pessoas
-			if ((aux2->pessoas->curso==filanova->curso||filanova->tipo==0||aux2->pessoas->tipo==0)&&aux2->vagas!=0) {//condições do enunciado
-				filanova = adiciona_cantina(aux2, filanova);				
+			if ((aux2->pessoas->curso == filanova->curso || filanova->tipo == 0 || aux2->pessoas->tipo == 0) && aux2->vagas != 0) {//condições do enunciado
+				filanova = adiciona_cantina(aux2, filanova);
 			}
 		}
 		aux2 = aux2->seguinte;
-		
-			
-		
-		
+
+
+
+
 	}
 
 	return filadeespera;
 }
+
+Mesa * reduzduracao(Mesa *mesas) {
+	Mesa * aux = mesas;
+	while (aux != NULL) {
+		identidade * iterator = aux->pessoas;
+		while (iterator != NULL) {
+			iterator->duracao--;
+			iterator = iterator->seguinte;
+		}
+		aux = aux->seguinte;
+	}
+	return mesas;
+}
+
+
+	

@@ -43,3 +43,4 @@ identidade * criaespecial(identidade*filadeespera, string * pNome, string * uNom
 bool verificagrupo(identidade * filadeespera, int custo);
 identidade* adiciona_cantina(Mesa*mesas, identidade* pessoa);
 identidade * insereMesas(identidade*filadeespera, Mesa*mesas);
+Mesa * reduzduracao(Mesa *mesas);

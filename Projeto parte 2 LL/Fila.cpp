@@ -86,7 +86,6 @@ identidade * removeGrupo(identidade * filadeespera) {
 
 	}
 	identidade * iterator = aux->seguinte;
-	aux->seguinte = aux->seguinte->seguinte;
 	filadeespera = aux->seguinte;
 	delete aux;
 	return filadeespera;

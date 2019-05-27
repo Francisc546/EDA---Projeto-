@@ -5,6 +5,7 @@
 #include <fstream>
 #include <locale>
 #include "Fila.h"
+#include "Emergencia.h"
 using namespace std;
 
 
@@ -48,7 +49,7 @@ int main() {
 		
 		while (ciclos != 0) {
 
-			cout << "(s) seguinte (e) Emergência (g) Gravar (c) Carregar dados (o) Opçoes ";
+			cout << "(s) seguinte (e) Emergencia (g) Gravar (c) Carregar dados (o) Opcoes ";
 			char opcao;
 			cin >> opcao;
 			switch (opcao) {
@@ -70,7 +71,9 @@ int main() {
 				}
 				else {
 					filadeespera = insereMesas(filadeespera, mesas);
+					reduzduracao(mesas);
 
+					
 					int special = rand() % 100;
 					if (special >= 95) {
 						filadeespera = criaespecial(filadeespera, pNome, uNome, cursos);
@@ -87,6 +90,30 @@ int main() {
 				}
 				break;
 			case 'e':
+				int emergencia;
+				cout << "******************Situaçao de Emergencia************************" << endl;
+				cout << "0 - Remover aluno/staff da cantina \n1 - Remover grupo da cantina " << endl;
+				cout << "Comando: ";
+				cin >> emergencia;
+				if (emergencia == 0) {
+					int alunoid;
+					cout << "Indique o numero do aluno/staff que quer remover: ";
+					cin >> alunoid;
+					removeElemento(mesas, alunoid, novaref->custo);
+					escreveFiladeEspera(filadeespera);
+					cout << endl;
+					imprimeCantina(mesas);
+				}
+				if (emergencia == 1) {
+					int numerogrupo;
+					cout << "Indique o numero do grupo que quer retirar: ";
+					cin >> numerogrupo;
+					removegrupo(mesas, numerogrupo);
+					escreveFiladeEspera(filadeespera);
+					cout << endl;
+					imprimeCantina(mesas);
+
+				}
 				break;
 			case 'g':
 			{
