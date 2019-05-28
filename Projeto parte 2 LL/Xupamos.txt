@@ -1,0 +1,33 @@
+void escreveFiladeEspera(identidade * filadeespera) {
+	identidade * aux = filadeespera;
+	
+	while (aux != NULL) {
+		if (aux->tipo==0)
+			cout << " -> " << aux->entidade << ", " << aux->primeironome << " " << aux->ultimonome << ", "  << aux->numeroid << ", Departamento: " << aux->numerogrupo << ", " << aux->plafond << " euros, (Duracao: " << aux->duracao << ")" << endl;
+		else
+			cout << " -> " << aux->entidade << ", " << aux->primeironome << " " << aux->ultimonome << ", " << aux->curso << ", " << aux->numeroid << ", Grupo: " << aux->numerogrupo << ", " << aux->plafond << " euros, (Duracao: " << aux->duracao << ")" << endl;
+		aux = aux->seguinte;
+	}
+	
+	cout << endl;
+}
+
+
+void imprimeCantina(Mesa * mesas) {
+	Mesa*aux = mesas;
+	while (aux != NULL) {
+		cout << "MESA N: " << aux->numMesa << "   TAMANHO:  " << aux->tamanho << endl;
+		identidade * aux2 = aux->pessoas;
+		while (aux2 != NULL) {
+			if (aux2->tipo==0)
+				cout << aux2->entidade << aux2->primeironome << " , Departamento " << aux2->numerogrupo << " | " << aux2->numeroid <<  " | (ciclos restantes: " << aux2->duracao << ") Plafond : " << aux2->plafond << endl;
+			else
+				cout << aux2->entidade << aux2->primeironome << " , grupo " << aux2->numerogrupo << " | " << aux2->numeroid << " | " << aux2->curso << " | (ciclos restantes: " << aux2->duracao << ") Plafond : " << aux2->plafond << endl;
+			aux2 = aux2->seguinte;
+
+		}
+		aux = aux->seguinte;
+
+	}
+
+}
