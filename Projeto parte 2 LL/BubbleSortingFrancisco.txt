@@ -117,12 +117,11 @@ void ordenaFeM(identidade * filadeespera, Mesa * mesas) { //Para ordenadar a fil
 	for (int j = 0; j < nMesas; j++) { //Imprime o array das pessoas da mesa desordenadas
 		cout << array2[j] << endl;
 	}
-	cout << "Mesas Desordenadas :" << endl;
-	cout << " /t" << endl;
+	
 	bubblesort(array2, nMesas); //Ordena o array das pessoas da mesa desordenadas
 
 	cout << "Mesas Ordenadas: " << endl; 
-	cout << " /t" << endl;
+	
 	
 	for (int j = 0; j < nMesas; j++) {  //Imprime o array das pessoas da mesa ordenadas
 		cout << array2[j] << endl;
