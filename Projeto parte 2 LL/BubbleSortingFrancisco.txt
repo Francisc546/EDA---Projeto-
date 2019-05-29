@@ -1,4 +1,4 @@
-void bubblesort(string * a, int n) {
+ivoid bubblesort(string * a, int n) {
 	bool swapped = true;
 	for (int i = 0; i < n - 1 && swapped; i++) {
 		swapped = false;
@@ -33,7 +33,7 @@ void ordenaFeM(identidade * filadeespera, Mesa * mesas) { //Para ordenadar a fil
 	}
 	
 	cout<< "Fila Desordenada: " << endl; //
-	cout << " /t" <<endl;
+	cout << endl;
 	string * array = new string[nFiladeespera]; //Criando um array dinâmico com o tamanho da fila de espera
 	while (auxF2 != NULL) {  // Passa os últimos nome dos membros da fila de espera para o array
 		array[f] = auxF2->ultimonome;
@@ -45,7 +45,7 @@ void ordenaFeM(identidade * filadeespera, Mesa * mesas) { //Para ordenadar a fil
 		cout << array[j] << endl;
 	}
 	cout << "Fila Ordenada:" << endl;
-	cout << " /t" << endl;
+	cout << endl;
 	bubblesort(array, nFiladeespera); //Ordena o array da fila de espera
 	for (int j = 0; j < nFiladeespera; j++) {  // Imprime o array ordenado
 			cout << array[j] << endl;
@@ -81,12 +81,12 @@ void ordenaFeM(identidade * filadeespera, Mesa * mesas) { //Para ordenadar a fil
 	
 	}
 
-	cout << nMesas <<endl;
+	
 	string * array2 = new string[nMesas];
 
 
 	cout << "Mesas Desordenadas: " << endl;
-
+        cout << endl;
 	identidade * auxdelete2 = auxM3->pessoas;
 
 	while (auxM3 != NULL) {   //Passa  os últimos nomes das mesas para o array
@@ -121,7 +121,7 @@ void ordenaFeM(identidade * filadeespera, Mesa * mesas) { //Para ordenadar a fil
 	bubblesort(array2, nMesas); //Ordena o array das pessoas da mesa desordenadas
 
 	cout << "Mesas Ordenadas: " << endl; 
-	
+	cout << endl;
 	
 	for (int j = 0; j < nMesas; j++) {  //Imprime o array das pessoas da mesa ordenadas
 		cout << array2[j] << endl;
