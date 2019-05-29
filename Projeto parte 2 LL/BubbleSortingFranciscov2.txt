@@ -1,0 +1,90 @@
+void ordenaFmaisM(identidade * filadeespera, Mesa * mesas) { //Para ordenadar a fila de espera e as mesas por ordem alfabética do último nome juntos
+	identidade * auxF = filadeespera;
+	identidade * auxF2 = filadeespera;
+
+	Mesa * auxM2 = mesas;
+
+	Mesa * auxM3 = mesas;
+	int nMesas = 0;
+	int nFiladeespera = 0;
+	int i = 0;
+	identidade * auxdelete = auxM2->pessoas;
+	identidade * auxdelete2 = auxM2->pessoas;
+	// Mesas
+	while (auxM2 != NULL) {   //Passa  os últimos nomes das mesas para o array
+
+		if (auxdelete != NULL) { //Ve mesa a mesa
+			auxdelete = auxdelete->seguinte;
+			nMesas++;
+
+		}
+
+		else if (auxM2->seguinte == NULL) //Verifica se a próxima mesa é a última para não sair fora da lista ligada o auxdelete
+		{
+			auxM2 = auxM2->seguinte;
+			delete auxdelete;
+		}
+
+		else if (auxM2 != NULL) { // Passa para a mesa seguinte
+			delete auxdelete;
+
+			auxM2 = auxM2->seguinte;
+			auxdelete = auxM2->pessoas;
+
+
+		}
+
+	}
+	// Fila de espera
+	while (auxF != NULL) { //Contando o nº de elementos da fila de espera
+
+		auxF = auxF->seguinte;
+		nFiladeespera++;
+
+	}
+	string * array = new string[nFiladeespera + nMesas];
+	while (auxF2 != NULL) {  // Passa os últimos nome dos membros da fila de espera para o array
+		array[i] = auxF2->ultimonome;
+		i++;
+		auxF2 = auxF2->seguinte;
+
+	}
+
+	while (auxM3 != NULL) {   //Passa  os últimos nomes das mesas para o array
+
+		if (auxdelete2 != NULL) { //Ve mesa a mesa
+			array[i] = auxdelete2->ultimonome;
+			auxdelete2 = auxdelete2->seguinte;
+			i++;
+
+		}
+
+		else if (auxM3->seguinte == NULL) //Verifica se a próxima mesa é a última para não sair fora da lista ligada o auxdelete
+		{
+			auxM3 = auxM3->seguinte;
+			delete auxdelete2;
+		}
+
+		else if (auxM3 != NULL) { // Passa para a mesa seguinte
+			delete auxdelete2;
+
+			auxM3 = auxM3->seguinte;
+			auxdelete2 = auxM3->pessoas;
+
+
+		}
+	}
+		cout << "Desordenado :" << endl;
+		cout << endl;
+		for (int j = 0; j < nFiladeespera + nMesas; j++) {
+			cout << array[j] << endl;
+		}
+
+		cout <<endl << "Ordenado :" << endl;
+		cout << endl;
+		bubblesort(array, nMesas + nFiladeespera);
+		for (int j = 0; j < nFiladeespera + nMesas; j++) {
+			cout << array[j] << endl;
+		}
+		
+}
