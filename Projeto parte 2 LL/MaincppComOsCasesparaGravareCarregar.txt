@@ -1,0 +1,19 @@
+antes do "do while"
+
+identidade* pessoalguardado = NULL;
+
+No case do c
+
+cout << endl << "************** Carregamento de dados" << endl;
+				loading(novaref, filadeespera);
+				loading_m(mesas);
+				ImprimeRefeicao(novaref);
+				escreveFiladeEspera(filadeespera);
+				imprimeCantina(mesas);
+				//cout << "It`s done" << endl;
+				break;
+
+No case do g
+
+rec(novaref, filadeespera, mesas, tamanhodacantina);
+				cout << "******** Tudo Gravado" << endl << endl;
