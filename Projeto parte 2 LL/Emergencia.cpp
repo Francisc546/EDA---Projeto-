@@ -13,10 +13,11 @@ Mesa * removeElemento(Mesa* mesas, int id, int custo) {
 
 		if (aux->pessoas->numeroid == id) {
 			aux->pessoas = aux->pessoas->seguinte;
+			aux->vagas++;
 			removido = true;
 		}
 		else {
-			while (iterator->seguinte != NULL && !removido) {
+			while (!removido && iterator->seguinte != NULL ) {
 				if (iterator->seguinte->numeroid == id) {
 					cout << "--------------------------------------------------------" << endl;
 					cout << "Identidade Removida: " << iterator->seguinte->primeironome << " " << iterator->seguinte->ultimonome << " Plafond: " << iterator->seguinte->plafond - custo << endl;
@@ -32,11 +33,13 @@ Mesa * removeElemento(Mesa* mesas, int id, int custo) {
 					if (iterator->seguinte->seguinte == NULL) {
 						iterator->seguinte = NULL;
 						delete remover;
+						aux->vagas++;
 						removido = true;
 					}
 					else {
 						iterator->seguinte = iterator->seguinte->seguinte;
 						delete remover;
+						aux->vagas++;
 						removido = true;
 					}
 					
@@ -51,21 +54,23 @@ Mesa * removeElemento(Mesa* mesas, int id, int custo) {
 	return mesas;
 }
 
-Mesa * removegrupo(Mesa* mesas, int numerogrupo) {
+
+Mesa * removegrupoEmergencia(Mesa * mesas, int numerogrupo, int custo){
 	Mesa * aux = mesas;
 	while (aux != NULL) {
-		identidade * aux2 = aux->pessoas;
-		while (aux2 != NULL) {
-			if (aux2->numerogrupo == numerogrupo) {
-				identidade * aux3 = aux2;
-				while (aux3->numerogrupo == numerogrupo) {
-					aux3 = aux3->seguinte;
-					
-				}
-				aux2 = aux3->seguinte;
-				delete aux3;
+		identidade * iterator = aux->pessoas;
+		while (iterator != NULL) {
+			if (iterator->numerogrupo == numerogrupo) {
+				cout << "-------------------------------------------------------------------" << endl;
+				cout << iterator->primeironome << " " << iterator->ultimonome << " Plafond: " << iterator->plafond - custo << endl;
+				cout << "-------------------------------------------------------------------" << endl;
+				removeElemento(mesas, iterator->numeroid,custo);
+				iterator = iterator->seguinte;
 			}
-			aux2 = aux2->seguinte;
+			else {
+
+				iterator = iterator->seguinte;
+			}
 		}
 		aux = aux->seguinte;
 	}

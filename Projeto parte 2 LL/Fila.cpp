@@ -78,26 +78,19 @@ identidade * removerPos(identidade * filadeespera, int pos) {
 }
 
 
-identidade * removeGrupo(identidade * filadeespera, identidade * peepsguardado) {
+identidade * removeGrupo(identidade * filadeespera,identidade & pessoalguardado) {
 	int num_grupo = filadeespera->numerogrupo;
 	identidade * aux = filadeespera;
-	identidade * guardado = NULL;
 	while (aux->seguinte->numerogrupo == num_grupo) {
 		
 		aux = aux->seguinte;
 
 	}
-	identidade * iterator = aux->seguinte;
-	guardado = filadeespera;
+	pessoalguardado = *filadeespera;
+	aux->seguinte = NULL;
 	filadeespera = aux->seguinte;
-	delete aux;
 
-	while (guardado != NULL) {
-		peepsguardado = adiciona_filadeespera(peepsguardado, guardado);
-		guardado = guardado->seguinte;
-	}
 
-	
 
 	return filadeespera ;
 }

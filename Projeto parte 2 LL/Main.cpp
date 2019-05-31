@@ -6,6 +6,7 @@
 #include <locale>
 #include "Fila.h"
 #include "Emergencia.h"
+#include "Opcoes.h"
 using namespace std;
 
 
@@ -34,7 +35,7 @@ int main() {
 	mesas = criamesas(mesas, tamanhodacantina);
 
 	
-	identidade * pessoalguardado = NULL;
+	identidade  pessoalguardado;
 
 
 	do {
@@ -59,7 +60,13 @@ int main() {
 					cout << " ***************Atenção ****************** \n Existe um membro do grupo sem plafond \n 0 - remover o grupo \n 1 - remover a pessoa \n Comando: ";
 					cin >> e;
 					if (e == 0) {
-						filadeespera = removeGrupo(filadeespera,pessoalguardado);
+						filadeespera = removeGrupo(filadeespera, pessoalguardado);
+						cout << "Imprimindo pessoal guardado" << endl;
+						identidade * aux = &pessoalguardado;
+						while (aux != NULL) {
+							cout << aux->primeironome << endl;
+							aux = aux->seguinte;
+						}
 						escreveFiladeEspera(filadeespera);
 						imprimeCantina(mesas);
 					}
@@ -71,8 +78,8 @@ int main() {
 				}
 				else {
 					filadeespera = insereMesas(filadeespera, mesas);
-					reduzduracao(mesas);
-
+					reduzduracao(mesas,novaref->custo);
+					removeElementos(mesas);
 					
 					int special = rand() % 100;
 					if (special >= 95) {
@@ -104,11 +111,11 @@ int main() {
 					cout << endl;
 					imprimeCantina(mesas);
 				}
-				if (emergencia == 1) {
+				else if (emergencia == 1) {
 					int numerogrupo;
 					cout << "Indique o numero do grupo que quer retirar: ";
 					cin >> numerogrupo;
-					removegrupo(mesas, numerogrupo);
+					removegrupoEmergencia(mesas,numerogrupo,novaref->custo);
 					escreveFiladeEspera(filadeespera);
 					cout << endl;
 					imprimeCantina(mesas);
@@ -116,42 +123,28 @@ int main() {
 				}
 				break;
 			case 'g':
-			{
-				fstream file;
-				file.open("refeicao---------------------.txt", ios::out);
-				file << novaref->entrada << endl << novaref->principal << endl << novaref->custo << endl;
-				file.close();
-				file.open("infoFilaEspera---------------.txt", ios::out);
-				while (filadeespera != NULL) {
-					if (filadeespera->tipo) {
-						file << filadeespera->tipo << endl << filadeespera->primeironome << endl
-							<< filadeespera->ultimonome << endl
-							<< filadeespera->numeroid << endl << filadeespera->curso << endl
-							<< filadeespera->plafond << endl << filadeespera->numerogrupo << endl
-							<< filadeespera->duracao << endl << filadeespera->n_elementos << endl;
-						filadeespera = filadeespera->seguinte;
-					}
-					else {
-						file << filadeespera->tipo << endl << filadeespera->primeironome << endl
-							<< filadeespera->ultimonome << endl << filadeespera->numeroid << endl
-							<< filadeespera->plafond << endl << filadeespera->numerogrupo << endl
-							<< filadeespera->duracao << endl << filadeespera->n_elementos << endl;
-						filadeespera = filadeespera->seguinte;
-					}
-				}
-				file.close();
-				cout << "******** Tudo Gravado" << endl;
+				rec(novaref, filadeespera, mesas, tamanhodacantina);
+				cout << "******** Tudo Gravado" << endl << endl;
 				break;
-			}
 
 			case 'c':
+				cout << endl << "************** Carregamento de dados" << endl;
+				loading(novaref, filadeespera);
+				loading_m(mesas);
+				ImprimeRefeicao(novaref);
+				escreveFiladeEspera(filadeespera);
+				imprimeCantina(mesas);
+				//cout << "It`s done" << endl;
 				break;
 			case 'o':
 				cout << "-----------------Opçoes------------------" << endl;
 				cout << " 1 - Alterar plafond de um individuo" << endl;
 				cout << " 2 - Alterar o nome de um individuo" << endl;
 				cout << " 3 - Alterar a duracao de um grupo" << endl;
-				cout << " 4 - Imprimir pessoal guardado " << endl;
+				cout << " 4 - Pesquisa por curso / departamento " << endl;
+				cout << " 5 - Ordenar mesas " << endl;
+				cout << " 6 - Ordenar identidades alfabeticamente pelo ultimo nome " << endl;
+				cout << " 7 - Pesquisar a identidade com base no id " << endl;
 				cout << "Comando: ";
 				int p;
 				cin >> p;
@@ -210,7 +203,7 @@ int main() {
 					int novadur = 0;
 					cout << "Indique a nova duracao: ";
 					cin >> novadur;
-					if (novadur > 0 && novadur <= 5) {
+					if (novadur >= 2 && novadur <= 5) {
 
 						if (commando2 == 2) {
 							alteraduracaofila(filadeespera, numgrupo, novadur);
@@ -232,7 +225,67 @@ int main() {
 
 				}
 				else if (p == 4) {
-					imprime(pessoalguardado);
+					int opcao = 0;
+					cout << "Pretende pesquisar por departamento (1) ou por curso (2): " << endl;
+					cin >> opcao;
+					if (opcao == 1) {
+						int departamento = 0;
+						cout << "Indique o numero do departamento: ";
+						cin >> departamento;
+						cout << "_____________________Departamento " << departamento << "___________________" << endl;
+						imprime(filadeespera, departamento);
+						imprimemesa(mesas, departamento);
+						cout << "________________________________________________________" << endl;
+					}
+					else if (opcao == 2) {
+						int opcao = 0;
+						cout << "Selecione o curso: " << endl;
+						cout << "0 - Economia" << endl;
+						cout << "1 - Educação Basica" << endl;
+						cout << "2 - Matematica" << endl;
+						cout << "3 - Linguas e Relacoes Empresariais" << endl;
+						cout << "4 - Gestao" << endl;
+						cout << "5 - Estudos da cultura" << endl;
+						cout << "6 - Engenharia Informatica" << endl;
+						cout << "7 - Engenharia Eletronica e Telecomunicacoes" << endl;
+						cout << "8 - Educacao Fisica e Desporto" << endl;
+						cout << "9 - Engeharia civil" << endl;
+						cout << "10 - Enfermagem" << endl;
+						cout << "11 - Direcao e Gestao Hoteleira" << endl;
+						cout << "12 - Artes Visuais" << endl;
+						cout << "13 - Biologia" << endl;
+						cout << "14 - Bioquimica" << endl;
+						cout << "15 - Ciencias de Educacao" << endl;
+						cout << "16 - Comunicaçao, Cultura e Organizacoes" << endl;
+						cout << "17 - Design" << endl;
+						cout << "18 - Psicologia" << endl;
+						cin >> opcao;
+
+						cout << "_____________________Curso " << cursos[opcao] << "___________________" << endl;
+						imprime2(filadeespera,cursos[opcao]);
+						imprimemesa2(mesas, cursos[opcao]);
+						cout << "________________________________________________________" << endl;
+
+
+					}
+
+				}
+				else if (p == 5) {
+					ordena(mesas);
+				}
+				else if (p == 6) {
+					ordenaFmaisM(filadeespera, mesas);
+				}
+				else if (p == 7) {
+				int alunoid;
+				cout << "Indique o id da identidae: ";
+				cin >> alunoid;
+				cout << "_____________________Identidade___________________" << endl;
+				imprime3(filadeespera, alunoid);
+				imprimemesa3(mesas, alunoid);
+				cout << "__________________________________________________" << endl;
+
+
 				}
 
 				break;
@@ -242,9 +295,8 @@ int main() {
 		}
 
 
-		system("PAUSE");
-		return 0;
-
-
 	} while (running);
+
+	system("PAUSE");
+	return 0;
 }

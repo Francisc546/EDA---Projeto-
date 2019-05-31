@@ -5,10 +5,191 @@
 #include "Ficheiros.h"
 #include "Fila.h"
 #include "Opcoes.h";
-#include <Windows.h>;
+#include <Windows.h>
 
 using namespace std;
 HANDLE color = GetStdHandle(STD_OUTPUT_HANDLE);
+
+
+void imprimeMesa(Mesa * mesas, int nMesa) {
+	Mesa*aux = mesas;
+	while (aux != NULL) {
+		if (aux->numMesa == nMesa) {
+			cout << "MESA N: " << aux->numMesa << "   TAMANHO:  " << aux->tamanho << endl;
+			identidade * aux2 = aux->pessoas;
+			while (aux2 != NULL) {
+				if (aux2->tipo == 0)
+					cout << aux2->entidade << aux2->primeironome << " , Departamento " << aux2->numerogrupo << " | " << aux2->numeroid << " | (ciclos restantes: " << aux2->duracao << ") Plafond : " << aux2->plafond << endl;
+				else
+					cout << aux2->entidade << aux2->primeironome << " , grupo " << aux2->numerogrupo << " | " << aux2->numeroid << " | " << aux2->curso << " | (ciclos restantes: " << aux2->duracao << ") Plafond : " << aux2->plafond << endl;
+				aux2 = aux2->seguinte;
+			}
+		}
+		aux = aux->seguinte;
+	}
+
+}
+
+
+identidade * alteraduracaofila(identidade * filadeespera, int numgrupo, int duracao) {
+	identidade * aux = filadeespera;
+	while (aux != NULL) {
+		if (aux->numerogrupo == numgrupo) {
+			while (aux->numerogrupo == numgrupo) {
+
+				aux->duracao = duracao;
+				aux = aux->seguinte;
+
+
+			}
+
+		}
+
+		aux = aux->seguinte;
+	}
+	return filadeespera;
+}
+
+Mesa * alteraduracaomesas(Mesa * mesas, int numgrupo, int duracao) {
+	Mesa * aux = mesas;
+	while (aux != NULL) {
+		identidade * iterator = aux->pessoas;
+		while (iterator != NULL) {
+			if (iterator->numerogrupo == numgrupo) {
+				iterator->duracao = duracao;
+			}
+			iterator = iterator->seguinte;
+		}
+		aux = aux->seguinte;
+	}
+	return mesas;
+}
+
+identidade * alterarnome(identidade * filadeespera, int id, string pnome, string unome) {
+	identidade * aux = filadeespera;
+	while (aux != NULL) {
+		if (aux->numeroid == id) {
+			aux->primeironome = pnome;
+			aux->ultimonome = unome;
+			break;
+		}
+		aux = aux->seguinte;
+
+	}
+	return filadeespera;
+}
+
+Mesa * alterarnome2(Mesa* mesas, int id, string pnome, string unome) {
+	Mesa * aux = mesas;
+	while (aux != NULL) {
+		identidade * iterator = aux->pessoas;
+		while (iterator != NULL) {
+			if (iterator->numeroid == id) {
+				iterator->primeironome = pnome;
+				iterator->ultimonome = unome;
+				break;
+			}
+			iterator = iterator->seguinte;
+		}
+		aux = aux->seguinte;
+	}
+	return mesas;
+}
+
+void imprime(identidade * filadeespera, int departamento) {
+	identidade * aux = filadeespera;
+	while (aux != NULL) {
+		if (aux->numerogrupo == departamento) {
+			cout << "Identidade: " << aux->primeironome << " " << aux->ultimonome << " Plafond:" << aux->plafond << endl;
+
+		}
+		aux = aux->seguinte;
+	}
+
+}
+
+void imprime2(identidade * filadeespera, string curso) {
+	identidade * aux = filadeespera;
+	while (aux != NULL) {
+		if (aux->curso == curso) {
+			cout << "Identidade: " << aux->primeironome << " " << aux->ultimonome << " Plafond:" << aux->plafond << endl;
+
+		}
+		aux = aux->seguinte;
+	}
+
+}
+
+
+void imprimemesa(Mesa * mesas, int departamento) {
+	Mesa * aux = mesas;
+	while (aux != NULL) {
+		identidade * aux2 = aux->pessoas;
+		while (aux2 != NULL) {
+			if (aux2->numerogrupo == departamento) {
+				cout << "Identidade: " << aux2->primeironome << " " << aux2->ultimonome << " Plafond:" << aux2->plafond << endl;
+			}
+			aux2 = aux2->seguinte;
+		}
+		aux = aux->seguinte;
+	}
+}
+
+
+void imprimemesa2(Mesa * mesas, string curso) {
+	Mesa * aux = mesas;
+	while (aux != NULL) {
+		identidade * aux2 = aux->pessoas;
+		while (aux2 != NULL) {
+			if (aux2->curso == curso) {
+				cout << "Identidade: " << aux2->primeironome << " " << aux2->ultimonome << " Plafond:" << aux2->plafond << endl;
+			}
+			aux2 = aux2->seguinte;
+		}
+		aux = aux->seguinte;
+	}
+}
+
+
+
+void imprime3(identidade * filadeespera, int id) {
+	identidade * aux = filadeespera;
+	while (aux != NULL) {
+		if (aux->numeroid == id) {
+			if (aux->tipo = 1) {
+				cout << "Identidade: " << aux->primeironome << " " << aux->ultimonome << " Curso: " << aux->curso << " Numero de grupo: " << aux->numerogrupo << " Plafond:" << aux->plafond << endl;
+			}
+			else {
+				cout << "Identidade: " << aux->primeironome << " " << aux->ultimonome <<  " Departamento: " << aux->numerogrupo << " Plafond:" << aux->plafond << endl;
+			}
+		}
+		aux = aux->seguinte;
+	}
+
+
+}
+
+void imprimemesa3(Mesa * mesas, int id) {
+	Mesa * aux = mesas;
+	while (aux != NULL) {
+		identidade * aux2 = aux->pessoas;
+		while (aux2 != NULL) {
+			if (aux2->numeroid == id) {
+				if (aux2->tipo == 1) {
+					cout << "Identidade: " << aux2->primeironome << " " << aux2->ultimonome << " Curso: " << aux2->curso << " Numero de grupo: " << aux2->numerogrupo << " Plafond:" << aux2->plafond << endl;
+
+				}
+				else {
+					cout << "Identidade: " << aux2->primeironome << " " << aux2->ultimonome << " Departamento: " << aux2->numerogrupo << " Plafond:" << aux2->plafond << endl;
+				}
+
+				
+			}
+			aux2 = aux2->seguinte;
+		}
+		aux = aux->seguinte;
+	}
+}
 
 void BubbleSort(int m[], int a[], int n)
 {
@@ -27,6 +208,7 @@ void BubbleSort(int m[], int a[], int n)
 		}
 	}
 }
+
 void bbubblesort(int id[], string * a, int n) {
 	bool swapped = true;
 	for (int i = 0; i < n - 1 && swapped; i++) {
@@ -42,7 +224,66 @@ void bbubblesort(int id[], string * a, int n) {
 
 }
 
-void imprimeMesa(Mesa * mesas, int nMesa) {
+void imprimePRIMOS(Mesa*mesas, identidade * filadeespera, int id) {
+	Mesa*aux = mesas;
+	identidade*aux3 = filadeespera;
+	bool printed = false;
+	while (aux != NULL) {
+		identidade * aux2 = aux->pessoas;
+		while (!printed && aux2 != NULL) {
+			if (aux2->numeroid == id) {
+				if (aux2->tipo == 0) {
+					SetConsoleTextAttribute(color, 7);
+					cout << aux2->entidade << aux2->primeironome << " ";
+					SetConsoleTextAttribute(color, 4);
+					cout << aux2->ultimonome;
+					SetConsoleTextAttribute(color, 7);
+					cout << " , Departamento " << aux2->numerogrupo << " | " << aux2->numeroid << " | (ciclos restantes: " << aux2->duracao << ") Plafond : " << aux2->plafond << endl;
+				}
+				else {
+					SetConsoleTextAttribute(color, 7);
+					cout << aux2->entidade << aux2->primeironome << " ";
+					SetConsoleTextAttribute(color, 4);
+					cout << aux2->ultimonome;
+					SetConsoleTextAttribute(color, 7);
+					cout << " , grupo " << aux2->numerogrupo << " | " << aux2->numeroid << " | " << aux2->curso << " | (ciclos restantes: " << aux2->duracao << ") Plafond : " << aux2->plafond << endl;
+
+				}printed = true;
+			}
+			else {
+				aux2 = aux2->seguinte;
+			}
+		}
+		aux = aux->seguinte;
+	}
+	while (!printed &&aux3 != NULL) {
+		if (aux3->numeroid == id) {
+			if (aux3->tipo == 0) {
+				SetConsoleTextAttribute(color, 7);
+				cout << aux3->entidade << aux3->primeironome << " ";
+				SetConsoleTextAttribute(color, 4);
+				cout << aux3->ultimonome;
+				SetConsoleTextAttribute(color, 7);
+				cout << " , Departamento " << aux3->numerogrupo << " | " << aux3->numeroid << " | (ciclos restantes: " << aux3->duracao << ") Plafond : " << aux3->plafond << endl;
+			}
+			else {
+				SetConsoleTextAttribute(color, 7);
+				cout << aux3->entidade << aux3->primeironome << " ";
+				SetConsoleTextAttribute(color, 4);
+				cout << aux3->ultimonome;
+				SetConsoleTextAttribute(color, 7);
+				cout << " , grupo " << aux3->numerogrupo << " | " << aux3->numeroid << " | " << aux3->curso << " | (ciclos restantes: " << aux3->duracao << ") Plafond : " << aux3->plafond << endl;
+			}
+			printed = true;
+		}
+		else {
+			aux3 = aux3->seguinte;
+		}
+
+	}
+}
+
+void imprimeMesa2(Mesa * mesas, int nMesa) {
 	Mesa*aux = mesas;
 	while (aux != NULL) {
 		if (aux->numMesa == nMesa) {
@@ -146,7 +387,7 @@ void ordenaFmaisM(identidade * filadeespera, Mesa * mesas) { //Para ordenadar a 
 	*/
 	cout << endl << "Ordenado :" << endl;
 	cout << endl;
-	bbubblesort(id,array, nMesas + nFiladeespera);
+	bbubblesort(id, array, nMesas + nFiladeespera);
 	for (int j = 0; j < nFiladeespera + nMesas; j++) {
 		iiid = id[j];
 		imprimePRIMOS(mesas, filadeespera, iiid);
@@ -154,67 +395,6 @@ void ordenaFmaisM(identidade * filadeespera, Mesa * mesas) { //Para ordenadar a 
 
 }
 
-
-
-
-void imprimePRIMOS(Mesa*mesas, identidade * filadeespera, int id) {
-	Mesa*aux = mesas;
-	identidade*aux3 = filadeespera;
-	bool printed = false;
-	while (aux != NULL) {
-		identidade * aux2 = aux->pessoas;
-		while (!printed && aux2 != NULL) {
-			if (aux2->numeroid == id) {
-				if (aux2->tipo == 0){
-					SetConsoleTextAttribute(color, 7);
-					cout << aux2->entidade << aux2->primeironome << " "; 
-					SetConsoleTextAttribute(color, 4);
-					cout << aux2->ultimonome;
-					SetConsoleTextAttribute(color, 7);
-					cout << " , Departamento " << aux2->numerogrupo << " | " << aux2->numeroid << " | (ciclos restantes: " << aux2->duracao << ") Plafond : " << aux2->plafond << endl;
-				}
-				else {
-					SetConsoleTextAttribute(color, 7);
-					cout << aux2->entidade << aux2->primeironome << " ";
-					SetConsoleTextAttribute(color, 4);
-					cout << aux2->ultimonome;
-					SetConsoleTextAttribute(color, 7);
-					cout << " , grupo " << aux2->numerogrupo << " | " << aux2->numeroid << " | " << aux2->curso << " | (ciclos restantes: " << aux2->duracao << ") Plafond : " << aux2->plafond << endl;
-				
-				}printed = true;
-			}
-			else {
-				aux2 = aux2->seguinte;
-			}
-		}
-		aux = aux->seguinte;
-	}
-	while (!printed &&aux3 != NULL) {
-		if (aux3->numeroid == id) {
-			if (aux3->tipo == 0) {
-				SetConsoleTextAttribute(color, 7);
-				cout << aux3->entidade << aux3->primeironome << " ";
-				SetConsoleTextAttribute(color, 4);
-				cout << aux3->ultimonome;
-				SetConsoleTextAttribute(color, 7);
-				cout << " , Departamento " << aux3->numerogrupo << " | " << aux3->numeroid << " | (ciclos restantes: " << aux3->duracao << ") Plafond : " << aux3->plafond << endl;
-			}
-			else{
-				SetConsoleTextAttribute(color, 7);
-				cout << aux3->entidade << aux3->primeironome << " ";
-				SetConsoleTextAttribute(color, 4);
-				cout << aux3->ultimonome;
-				SetConsoleTextAttribute(color, 7);
-				cout << " , grupo " << aux3->numerogrupo << " | " << aux3->numeroid << " | " << aux3->curso << " | (ciclos restantes: " << aux3->duracao << ") Plafond : " << aux3->plafond << endl;
-		}
-			printed = true;
-		}
-		else {
-			aux3 = aux3->seguinte;
-		}
-		
-	}
-}
 
 
 void ordena(Mesa*mesas) {
@@ -237,6 +417,6 @@ void ordena(Mesa*mesas) {
 	}
 	BubbleSort(nMesas, Vetor, counter);
 	for (int j = 0; j < counter; j++) {
-		imprimeMesa(mesas, nMesas[j]);
+		imprimeMesa2(mesas, nMesas[j]);
 	}
 }

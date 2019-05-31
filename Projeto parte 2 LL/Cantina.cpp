@@ -4,6 +4,7 @@
 #include "Cantina.h"
 #include "Ficheiros.h"
 #include "Fila.h"
+#include "Emergencia.h"
 
 using namespace std;
 
@@ -110,7 +111,10 @@ void imprimeCantina(Mesa * mesas) {
 		cout << "MESA N: " << aux->numMesa << "   TAMANHO:  " << aux->tamanho << endl;
 		identidade * aux2 = aux->pessoas;
 		while (aux2 != NULL) {
-			cout << aux2->entidade << aux2->primeironome << " , grupo " << aux2->numerogrupo << " | " << aux2->numeroid << " | " << aux2->curso << " | (ciclos restantes: " << aux2->duracao << ") Plafond : " << aux2->plafond << endl;
+			if (aux2->tipo == 0)
+				cout << aux2->entidade << aux2->primeironome << " , Departamento " << aux2->numerogrupo << " | " << aux2->numeroid << " | (ciclos restantes: " << aux2->duracao << ") Plafond : " << aux2->plafond << endl;
+			else
+				cout << aux2->entidade << aux2->primeironome << " , grupo " << aux2->numerogrupo << " | " << aux2->numeroid << " | " << aux2->curso << " | (ciclos restantes: " << aux2->duracao << ") Plafond : " << aux2->plafond << endl;
 			aux2 = aux2->seguinte;
 
 		}
@@ -215,9 +219,13 @@ void escreveFiladeEspera(identidade * filadeespera) {
 	identidade * aux = filadeespera;
 
 	while (aux != NULL) {
-		cout << " -> " << aux->entidade << ", " << aux->primeironome << " " << aux->ultimonome << ", " << aux->curso << ", " << aux->numeroid << ", Grupo: " << aux->numerogrupo << ", " << aux->plafond << " euros, (Duracao: " << aux->duracao << ")" << endl;
+		if (aux->tipo == 0)
+			cout << " -> " << aux->entidade << ", " << aux->primeironome << " " << aux->ultimonome << ", " << aux->numeroid << ", Departamento: " << aux->numerogrupo << ", " << aux->plafond << " euros, (Duracao: " << aux->duracao << ")" << endl;
+		else
+			cout << " -> " << aux->entidade << ", " << aux->primeironome << " " << aux->ultimonome << ", " << aux->curso << ", " << aux->numeroid << ", Grupo: " << aux->numerogrupo << ", " << aux->plafond << " euros, (Duracao: " << aux->duracao << ")" << endl;
 		aux = aux->seguinte;
 	}
+
 	cout << endl;
 }
 
@@ -286,88 +294,66 @@ identidade * insereMesas(identidade * filadeespera, Mesa * mesas) {
 	return filadeespera;
 }
 
-Mesa * reduzduracao(Mesa *mesas) {
+Mesa * reduzduracao2(Mesa *mesas, int custo) {
 	Mesa * aux = mesas;
 	while (aux != NULL) {
 		identidade * iterator = aux->pessoas;
 		while (iterator != NULL) {
+			if (iterator->duracao == 0) {
+				removeElemento(mesas, iterator->numeroid, custo);
+				//iterator = iterator->seguinte;
+			}
+			else {
+				iterator->duracao--;
+				iterator = iterator->seguinte;
+			}
+		}
+		aux = aux->seguinte;
+	}
+	return mesas;
+}
+
+Mesa * reduzduracao(Mesa *mesas, int custo) {
+	Mesa * aux = mesas;
+	while (aux != NULL) {
+		identidade * iterator = aux->pessoas;
+		while (iterator != NULL) {
+			/*if (iterator->duracao == 0) {
+				removeElemento(mesas, iterator->numeroid, custo);
+				
+			}*/
 			iterator->duracao--;
 			iterator = iterator->seguinte;
+			
 		}
 		aux = aux->seguinte;
 	}
 	return mesas;
 }
 
-identidade * alteraduracaofila(identidade * filadeespera, int numgrupo, int duracao) {
-	identidade * aux = filadeespera;
-	while (aux != NULL) {
-		if (aux->numerogrupo == numgrupo) {
-			while (aux->numerogrupo == numgrupo) {
-
-				aux->duracao = duracao;
-				aux = aux->seguinte;
-
-
+Mesa * removeElementos(Mesa * mesas) {
+	bool pessoas_a_sair = true;
+	while (pessoas_a_sair) {
+		Mesa * aux = mesas;
+		bool sair=false;
+		pessoas_a_sair = false;
+		while (aux != NULL && !sair) {
+			identidade * iterator = aux->pessoas;
+			while (iterator != NULL && !sair) {
+				if (iterator->duracao == 0) {
+					aux = removeElemento(mesas, iterator->numeroid, 0);
+					pessoas_a_sair = true;
+					sair = true;
+				}
+				iterator = iterator->seguinte;
 			}
-
+			aux = aux->seguinte;
 		}
-
-		aux = aux->seguinte;
-	}
-	return filadeespera;
-}
-	
-Mesa * alteraduracaomesas(Mesa * mesas, int numgrupo, int duracao) {
-	Mesa * aux = mesas;
-	while (aux != NULL) {
-		identidade * iterator = aux->pessoas;
-		while (iterator != NULL) {
-			if (iterator->numerogrupo == numgrupo) {
-				iterator->duracao = duracao;
-			}
-			iterator = iterator->seguinte;
-		}
-		aux = aux->seguinte;
 	}
 	return mesas;
 }
 
-identidade * alterarnome(identidade * filadeespera,int id, string pnome, string unome) {
-	identidade * aux = filadeespera;
-	while (aux != NULL) {
-		if (aux->numeroid == id) {
-			aux->primeironome = pnome;
-			aux->ultimonome = unome;
-			break;
-		}
-		aux = aux->seguinte;
 
-	}
-	return filadeespera;
-}
 
-Mesa * alterarnome2(Mesa* mesas, int id, string pnome, string unome) {
-	Mesa * aux = mesas;
-	while (aux != NULL) {
-		identidade * iterator = aux->pessoas;
-		while (iterator != NULL) {
-			if (iterator->numeroid == id) {
-				iterator->primeironome = pnome;
-				iterator->ultimonome = unome;
-				break;
-			}
-			iterator = iterator->seguinte;
-		}
-		aux = aux->seguinte;
-	}
-	return mesas;
-}
 
-void imprime(identidade * guardado) {
-	identidade * aux = guardado;
-	while (aux != NULL) {
-		cout << aux->primeironome << endl;
-		aux = aux->seguinte;
-	}
-}
+

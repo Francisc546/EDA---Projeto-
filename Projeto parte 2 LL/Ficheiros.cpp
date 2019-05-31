@@ -1,14 +1,15 @@
+
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "cantina.h"
+#include "Cantina.h"
 
 using namespace std;
 
 int contaLinhas(string filename) {
 	int nLinhas = 0;
 	ifstream file(filename);
-	string temp;
+	string temp = "";
 	while (getline(file, temp)) {
 		nLinhas++;
 	}
@@ -16,7 +17,8 @@ int contaLinhas(string filename) {
 	return nLinhas;
 }
 
-void Insere(string* Nome, string filename, int tamanho) {
+
+void Insere(string * Nome, string filename, int tamanho) {
 	int i = 0;
 	ifstream file;
 	file.open(filename);
@@ -26,13 +28,31 @@ void Insere(string* Nome, string filename, int tamanho) {
 	file.close();
 }
 
-void escreve(string* Nome, int tamanho) {
+
+
+
+
+void InsereFicheiros(string * nome, string filename) {
+
+	int i = 0;
+	ifstream file;
+	file.open(filename);
+	string aux;
+	while (getline(file, aux)) {
+		nome[i] = aux;
+		i++;
+
+	}
+	file.close();
+}
+void escreveFicheiros(string *nome, int tamanho) {
+
 	for (int i = 0; i < tamanho; i++) {
-		cout << Nome[i] << endl;
+		cout << nome[i] << endl;
 	}
 }
 
-void rec(refeicao* novaref, identidade* filadeespera, Mesa* mesas, int tdc) {
+void rec(refeicao * novaref, identidade* filadeespera, Mesa* mesas, int tdc) {
 	fstream file;
 	file.open("refeicao---------------------.txt", ios::out);
 	file << novaref->entrada << endl << novaref->principal << endl << novaref->custo << endl;
@@ -42,7 +62,7 @@ void rec(refeicao* novaref, identidade* filadeespera, Mesa* mesas, int tdc) {
 	while (filadeespera != NULL) {
 		file << filadeespera->tipo << endl << filadeespera->entidade << endl
 			<< filadeespera->primeironome << endl << filadeespera->ultimonome << endl
-			<< filadeespera->numeroid << endl << filadeespera->plafond << endl 
+			<< filadeespera->numeroid << endl << filadeespera->plafond << endl
 			<< filadeespera->numerogrupo << endl << filadeespera->duracao << endl << filadeespera->n_elementos << endl;
 		if (filadeespera->tipo) {
 			file << filadeespera->curso << endl;
@@ -54,11 +74,12 @@ void rec(refeicao* novaref, identidade* filadeespera, Mesa* mesas, int tdc) {
 
 	file.open("infoMesa---------------------.txt", ios::out);
 	file << tdc << endl;
+
 	while (mesas != NULL) {
 		file << mesas->numMesa << endl << mesas->tamanho << endl << mesas->vagas << endl;
 		while (mesas->pessoas != NULL) {
 			file /*<< mesas->pessoas->tipo << endl*/ << mesas->pessoas->primeironome << endl << mesas->pessoas->ultimonome << endl
-				<< mesas->pessoas->curso << endl << mesas->pessoas->duracao << endl << mesas->pessoas->entidade << endl 
+				<< mesas->pessoas->curso << endl << mesas->pessoas->duracao << endl << mesas->pessoas->entidade << endl
 				<< mesas->pessoas->numerogrupo << endl << mesas->pessoas->numeroid << endl << mesas->pessoas->n_elementos << endl
 				<< mesas->pessoas->plafond << endl;
 			mesas->pessoas = mesas->pessoas->seguinte;
@@ -78,11 +99,11 @@ void loading(refeicao* novaref, identidade* filadeespera) {
 	filadeespera = NULL; //apagar todos manualmente
 	int nElementos = contaLinhas("infoFilaEspera---------------.txt") / 9;
 	file.open("infoFilaEspera---------------.txt");
-	for (int c = 0; c < nElementos-1; c++) {
+	for (int c = 0; c < nElementos - 1; c++) {
 		identidade* aux_f = new identidade;
 		string tipo, entidade, primeironome, ultimonome, numeroid, plafond, numerogrupo, duracao, n_elementos, curso;
 		getline(file, tipo);
-		aux_f->tipo = tipo=="1";
+		aux_f->tipo = tipo == "1";
 		getline(file, entidade);
 		aux_f->entidade = entidade;
 		getline(file, primeironome);
@@ -111,7 +132,7 @@ void loading(refeicao* novaref, identidade* filadeespera) {
 		else {
 			aux_f->seguinte = filadeespera;
 			filadeespera = aux_f;
-		}	
+		}
 	}
 	file.close();
 }
@@ -146,15 +167,15 @@ void loading_m(Mesa* mesas) {
 			getline(file, primeironome);
 			aux_m->primeironome = primeironome;
 			//cout << aux_m->primeironome << endl;
-			
+
 			getline(file, ultimonome);
 			aux_m->ultimonome = ultimonome;
 			//cout << aux_m->ultimonome << endl;
-			
+
 			getline(file, curso);
 			aux_m->curso = curso;
 			//cout << "Curso: " << aux_m->curso << endl;
-			
+
 			getline(file, duracao);
 			aux_m->duracao = stoi(duracao);
 			//cout << aux_m->duracao << endl;
@@ -170,7 +191,7 @@ void loading_m(Mesa* mesas) {
 			getline(file, numeroid);
 			aux_m->numeroid = stoi(numeroid);
 			//cout << aux_m->numeroid << endl;
-			
+
 			getline(file, n_elementos);
 			aux_m->n_elementos = stoi(n_elementos);
 			//cout << aux_m->n_elementos << endl;
@@ -193,3 +214,4 @@ void loading_m(Mesa* mesas) {
 	}
 	file.close();
 }
+

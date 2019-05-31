@@ -6,6 +6,6 @@
 using namespace std;
 
 Mesa * removeElemento(Mesa* mesas, int id, int custo);
-Mesa * removegrupo(Mesa* mesas, int numerogrupo);
+Mesa * removegrupoEmergencia(Mesa * mesas, int numerogrupo,int custo);
 
 
